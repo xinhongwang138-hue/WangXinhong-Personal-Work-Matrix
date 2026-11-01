@@ -2,6 +2,8 @@
 
 四个系统，一条主线：把 AI 能力做成能跑的产品。
 
+**在线访问**：https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/
+
 这是一个静态单页站点，把这四个仓库收进一页可复核的索引 —— 技术选型、硬约束、测试用例、已知边界都写在对应卡片里。
 
 ![首屏预览](docs/preview.png)
