@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>王鑫鸿 · 个人作品矩阵 | AI 应用工程</title>
+<meta name="description" content="王鑫鸿的个人作品矩阵：电商运营助手、合同审批系统、企业知识库、深度搜索 Agent。四个可本地运行的系统，附可复核的代码规模、测试用例与已知边界。">
+<meta name="author" content="王鑫鸿">
+<meta name="theme-color" content="#07090E" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="王鑫鸿 · 个人作品矩阵">
+<meta property="og:description" content="四个系统，一条主线：把 AI 能力做成能跑的产品。">
+<meta property="og:url" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/">
+<meta property="og:image" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/assets/img/og.png">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/app.css">
+<script>
+  // 首屏前定主题，避免闪白
+  (function () {
+    try {
+      var saved = localStorage.getItem("wxh-theme");
+      var mql = window.matchMedia("(prefers-color-scheme: light)");
+      var theme = saved || (mql.matches ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "王鑫鸿",
+  "url": "https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/",
+  "sameAs": ["https://github.com/xinhongwang138-hue"],
+  "jobTitle": "AI 应用开发 / 全栈工程",
+  "knowsAbout": ["Agent 编排", "RAG 检索", "FastAPI", "Next.js", "LangGraph", "PostgreSQL"]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<!-- ============ 导航 ============ -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top" aria-label="王鑫鸿个人作品矩阵 · 回到顶部">
+      <span class="brand__mark" aria-hidden="true">WX</span>
+      <span class="brand__text">
+        <span class="brand__name">王鑫鸿 · 个人作品矩阵</span>
+        <span class="brand__sub">Personal Work Matrix</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="页面区块">
+      <a class="nav__link" href="#matrix">矩阵</a>
+      <a class="nav__link" href="#capability">能力</a>
+      <a class="nav__link" href="#architecture">架构</a>
+      <a class="nav__link" href="#evidence">数字</a>
+      <a class="nav__link" href="#boundary">边界</a>
+      <a class="nav__link" href="#about">关于</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="icon-btn nav__toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" stroke-linecap="round"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z" stroke-linejoin="round"/></svg>
+      </button>
+      <a class="btn btn--sm" href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="#matrix">01 · 作品矩阵</a>
+  <a href="#capability">02 · 能力矩阵</a>
+  <a href="#architecture">03 · 架构主线</a>
+  <a href="#evidence">04 · 可复核的数字</a>
+  <a href="#boundary">05 · 已知边界</a>
+  <a href="#about">06 · 关于</a>
+</div>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- ============ 首屏 ============ -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <span class="eyebrow"><i class="eyebrow__dot" aria-hidden="true"></i>AI 应用工程 · 全栈实现 · 2026</span>
+
+        <h1>四个系统，一条主线：<br><span class="accent">把 AI 能力做成能跑的产品</span></h1>
+
+        <p class="hero__lead">
+          电商运营、合同审批、企业知识库、深度检索 —— 从业务建模、状态机设计，到 Agent 编排与验收测试，
+          每个仓库都能本地拉起、能跑、能复跑。<strong>不是脚手架，也不是只有截图的 demo。</strong>
+        </p>
+        <p class="hero__note">这是一份可点开的工程索引：每个项目下面写清技术选型、硬约束和已知边界。</p>
+
+        <div class="hero__ctas">
+          <a class="btn btn--primary" href="#matrix">
+            浏览作品矩阵
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">
+            GitHub 主页
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="hero__stats" aria-label="总览数字">
+          <div class="stat">
+            <div class="stat__num"><span data-count="4">4</span></div>
+            <div class="stat__label">自建系统</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num"><span data-count="94653">94,653</span></div>
+            <div class="stat__label">行源码</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num"><span data-count="451">451</span></div>
+            <div class="stat__label">个测试用例</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num"><span data-count="61">61</span></div>
+            <div class="stat__label">次提交</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel" aria-label="四个系统的代码规模">
+        <div class="panel__head">
+          <span class="panel__title"><i aria-hidden="true"></i>System Matrix</span>
+          <span class="panel__meta">4 / 4</span>
+        </div>
+        <div class="panel__grid">
+          <a class="tile" href="#p01">
+            <div class="tile__idx">P01</div>
+            <div class="tile__name">电商运营助手</div>
+            <div class="tile__meta">Python · 43,068 行</div>
+            <div class="tile__bar" aria-label="占全部源码 45.5%"><em>LOC</em><span class="track"><span style="width:45.5%"></span></span><b>45.5%</b></div>
+          </a>
+          <a class="tile" href="#p02">
+            <div class="tile__idx">P02</div>
+            <div class="tile__name">合同审批系统</div>
+            <div class="tile__meta">TypeScript · 37,702 行</div>
+            <div class="tile__bar" aria-label="占全部源码 39.8%"><em>LOC</em><span class="track"><span style="width:39.8%"></span></span><b>39.8%</b></div>
+          </a>
+          <a class="tile" href="#p03">
+            <div class="tile__idx">P03</div>
+            <div class="tile__name">企业知识库</div>
+            <div class="tile__meta">Python · 10,785 行</div>
+            <div class="tile__bar" aria-label="占全部源码 11.4%"><em>LOC</em><span class="track"><span style="width:11.4%"></span></span><b>11.4%</b></div>
+          </a>
+          <a class="tile" href="#p04">
+            <div class="tile__idx">P04</div>
+            <div class="tile__name">深度搜索 Agent</div>
+            <div class="tile__meta">Python · 3,098 行</div>
+            <div class="tile__bar" aria-label="占全部源码 3.3%"><em>LOC</em><span class="track"><span style="width:3.3%"></span></span><b>3.3%</b></div>
+          </a>
+        </div>
+        <div class="panel__foot">
+          <span>4 systems / 3 languages / 1 line</span>
+          <span>LOC 统计口径见 04</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ 01 作品矩阵 ============ -->
+  <section class="section" id="matrix">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">01 / Works</div>
+          <h2>四个系统，四种业务形态</h2>
+          <p>
+            共同点不是技术栈，而是交付标准：<b>数据库迁移可重放、失败要显式、边界写进文档</b>。
+            下面每张卡都按「主链路 / 工程约束 / 验收」三行给硬信息，写不出来的就不写。
+          </p>
+        </div>
+        <div class="sec-head__aside">
+          4 repositories<br>public · 2026.10 — 2026.11
+        </div>
+      </div>
+
+      <div class="projects">
+        <!-- P01 -->
+        <article class="pcard reveal" id="p01">
+          <div class="pcard__top">
+            <span class="pcard__idx">P01</span>
+            <span class="pcard__metric">43,068 LOC</span>
+          </div>
+          <h3>电商运营助手</h3>
+          <div class="pcard__en">Ecommerce Operation Assistant</div>
+          <p class="pcard__desc">
+            多平台店铺运营工作台：商品 / SKU / 库存、竞品监控、AI 创意与素材、投放实验、Agent 任务与审批，
+            后面挂一条异步任务队列。
+          </p>
+
+          <div class="facts">
+            <div class="fact">
+              <span class="fact__label">主链路</span>
+              <span class="fact__text">Next.js 16 工作台 → FastAPI → <b>Celery + Redis</b> 队列 → LangGraph Agent（Postgres checkpointer）</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">工程约束</span>
+              <span class="fact__text">业务 MySQL、队列 Redis、检查点 Postgres <b>三库分离</b>；六个容器一条 compose 起全栈；本地 8001 与容器内 8000 的差异写进 README 防混用</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">验收</span>
+              <span class="fact__text"><b>181 个 pytest 用例</b>；待办中心聚合低库存、竞品变化、失败任务与待审批，SSE 推送执行事件</span>
+            </div>
+          </div>
+
+          <div class="pcard__tags">
+            <span class="tag">Next.js 16</span><span class="tag">FastAPI</span><span class="tag">Celery</span><span class="tag">LangGraph</span><span class="tag">MySQL 8</span><span class="tag">Redis 7</span><span class="tag">PostgreSQL 16</span><span class="tag">Docker</span>
+          </div>
+
+          <div class="pcard__foot">
+            <div class="pcard__stats">
+              <span><b>274</b> 文件</span><span><b>181</b> 用例</span><span><b>17</b> 提交</span>
+            </div>
+            <a class="repo-link" href="https://github.com/xinhongwang138-hue/ecommerce-operation-assistant" target="_blank" rel="noopener">
+              查看仓库
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- P02 -->
+        <article class="pcard reveal" id="p02">
+          <div class="pcard__top">
+            <span class="pcard__idx">P02</span>
+            <span class="pcard__metric">37,702 LOC</span>
+          </div>
+          <h3>合同审批系统</h3>
+          <div class="pcard__en">Contract Approval</div>
+          <p class="pcard__desc">
+            合同全生命周期：起草 → 可配置多级审批 → 用印 → 履行 → 到期预警 → 变更 → 归档，
+            配套组织架构、权限、模板、流程可视化配置、审计与效率报表。
+          </p>
+
+          <div class="facts">
+            <div class="fact">
+              <span class="fact__label">主链路</span>
+              <span class="fact__text">Next.js 16 App Router + Server Actions → <b>自研流程引擎</b>：会签 / 或签 / 条件分支 / 加签转签 / 用印归档</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">工程约束</span>
+              <span class="fact__text">TS strict + <code>noUncheckedIndexedAccess</code>、禁 <code>any</code>；金额一律 <b>Decimal(18,2)</b> 禁浮点；时间存 UTC、展示 Asia/Shanghai；定义快照不可变</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">验收</span>
+              <span class="fact__text"><b>259 个用例</b>：Vitest 单测 + 集成（独立 contract_test 库）+ Playwright 全链路；覆盖会签比例阈值、越权 403、归档后只读</span>
+            </div>
+          </div>
+
+          <div class="pcard__tags">
+            <span class="tag">Next.js 16.4</span><span class="tag">React 19</span><span class="tag">TypeScript 5.9</span><span class="tag">Prisma 7</span><span class="tag">PostgreSQL 16</span><span class="tag">Better Auth</span><span class="tag">Tailwind v4</span><span class="tag">Vitest</span><span class="tag">Playwright</span>
+          </div>
+
+          <div class="pcard__foot">
+            <div class="pcard__stats">
+              <span><b>201</b> 文件</span><span><b>259</b> 用例</span><span><b>27</b> 提交</span>
+            </div>
+            <a class="repo-link" href="https://github.com/xinhongwang138-hue/contract-approval" target="_blank" rel="noopener">
+              查看仓库
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- P03 -->
+        <article class="pcard reveal" id="p03">
+          <div class="pcard__top">
+            <span class="pcard__idx">P03</span>
+            <span class="pcard__metric">10,785 LOC</span>
+          </div>
+          <h3>企业知识库</h3>
+          <div class="pcard__en">Knowledge Base · RAG</div>
+          <p class="pcard__desc">
+            文档进、答案出。PDF / Markdown 导入编排与混合检索问答两条 LangGraph 链路，
+            中间接向量库、对象存储与会话历史。
+          </p>
+
+          <div class="facts">
+            <div class="fact">
+              <span class="fact__label">主链路</span>
+              <span class="fact__text">MinerU 解析 → 图片抽取 → 分块 → <b>BGE-M3 向量化</b> → Milvus 入库；原图进 MinIO，历史进 Mongo</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">工程约束</span>
+              <span class="fact__text">查询侧向量检索 + HyDE 双路召回 → <b>RRF 融合</b> → rerank → 联网兜底（MCP）；torch 线程数必须在 import 前锁定，否则 BGE-M3 会 segfault</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">验收</span>
+              <span class="fact__text"><span class="flag">仅 1 个链路脚本</span> 未建 pytest 套件 —— 这条不粉饰，已列进「已知边界」</span>
+            </div>
+          </div>
+
+          <div class="pcard__tags">
+            <span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">MinerU</span><span class="tag">BGE-M3</span><span class="tag">Milvus</span><span class="tag">MinIO</span><span class="tag">MongoDB</span><span class="tag">Reranker</span><span class="tag">MCP</span>
+          </div>
+
+          <div class="pcard__foot">
+            <div class="pcard__stats">
+              <span><b>64</b> 文件</span><span><b>0</b> 用例</span><span><b>14</b> 提交</span>
+            </div>
+            <a class="repo-link" href="https://github.com/xinhongwang138-hue/knowledge_base" target="_blank" rel="noopener">
+              查看仓库
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- P04 -->
+        <article class="pcard reveal" id="p04">
+          <div class="pcard__top">
+            <span class="pcard__idx">P04</span>
+            <span class="pcard__metric">3,098 LOC</span>
+          </div>
+          <h3>深度搜索 Agent</h3>
+          <div class="pcard__en">Deep Search Agent</div>
+          <p class="pcard__desc">
+            主智能体 + 网络 / 数据库 / 知识库三路子智能体的深度检索框架：
+            检索下沉到子智能体，成文收口到主智能体。
+          </p>
+
+          <div class="facts">
+            <div class="fact">
+              <span class="fact__label">主链路</span>
+              <span class="fact__text">DeepAgents 主智能体按 <b>description 路由</b>三路子智能体 → 工具层（Tavily / 只读 SQL / RAGFlow / 多格式文档）→ 主智能体成文</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">工程约束</span>
+              <span class="fact__text">SQL 只读、路径穿越、检索次数预算全部在<b>执行层硬校验</b>，不靠提示词自觉；异常收敛成「报错但不抛栈」</span>
+            </div>
+            <div class="fact">
+              <span class="fact__label">验收</span>
+              <span class="fact__text"><b>11 个 pytest 用例</b> 专打护栏：危险 SQL 拒绝、工作区越界拒绝、坏 PDF 不炸服务；FastAPI + WebSocket 按 thread_id 定向推送轨迹</span>
+            </div>
+          </div>
+
+          <div class="pcard__tags">
+            <span class="tag">DeepAgents</span><span class="tag">LangGraph</span><span class="tag">FastAPI</span><span class="tag">WebSocket</span><span class="tag">Vue 3</span><span class="tag">Vite</span><span class="tag">Tavily</span><span class="tag">RAGFlow</span>
+          </div>
+
+          <div class="pcard__foot">
+            <div class="pcard__stats">
+              <span><b>35</b> 文件</span><span><b>11</b> 用例</span><span><b>3</b> 提交</span>
+            </div>
+            <a class="repo-link" href="https://github.com/xinhongwang138-hue/deep-search-agent" target="_blank" rel="noopener">
+              查看仓库
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 能力矩阵 ============ -->
+  <section class="section" id="capability">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">02 / Capability</div>
+          <h2>能力落在哪个系统里，一眼能查</h2>
+          <p>
+            这张表用来自查，也用来防吹：<b>没做过的格子就是空的</b>。同一项能力在四个系统里的深度不同，
+            主色实心代表主力实现，半实心代表有实现但不是重点。
+          </p>
+        </div>
+        <div class="sec-head__aside">
+          rows 7 × columns 4<br>自评口径，按代码量判
+        </div>
+      </div>
+
+      <div class="matrix reveal" role="table" aria-label="能力与项目对照矩阵">
+        <div class="matrix__head" role="row">
+          <div role="columnheader">能力维度</div>
+          <div class="mh" role="columnheader"><b>P01</b><span>电商运营</span></div>
+          <div class="mh" role="columnheader"><b>P02</b><span>合同审批</span></div>
+          <div class="mh" role="columnheader"><b>P03</b><span>知识库</span></div>
+          <div class="mh" role="columnheader"><b>P04</b><span>深度搜索</span></div>
+        </div>
+
+        <div class="matrix__row" role="row">
+          <div class="mx-label" role="rowheader"><b>Agent / 状态机</b><span>orchestration</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P01"><span class="dot" aria-hidden="true">●</span><span class="note">LangGraph</span></div>
+          <div class="mx-cell" role="cell" data-level="part" data-p="P02"><span class="dot" aria-hidden="true">◐</span><span class="note">流程引擎</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P03"><span class="dot" aria-hidden="true">●</span><span class="note">双链路</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P04"><span class="dot" aria-hidden="true">●</span><span class="note">主从委派</span></div>
+        </div>
+
+        <div class="matrix__row" role="row">
+          <div class="mx-label" role="rowheader"><b>检索与 RAG</b><span>retrieval</span></div>
+          <div class="mx-cell" role="cell" data-level="none" data-p="P01"><span class="dot" aria-hidden="true">–</span><span class="note">未涉及</span></div>
+          <div class="mx-cell" role="cell" data-level="none" data-p="P02"><span class="dot" aria-hidden="true">–</span><span class="note">未涉及</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P03"><span class="dot" aria-hidden="true">●</span><span class="note">RRF + HyDE</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P04"><span class="dot" aria-hidden="true">●</span><span class="note">RAGFlow</span></div>
+        </div>
+
+        <div class="matrix__row" role="row">
+          <div class="mx-label" role="rowheader"><b>数据建模与事务</b><span>data</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P01"><span class="dot" aria-hidden="true">●</span><span class="note">三库分离</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P02"><span class="dot" aria-hidden="true">●</span><span class="note">Prisma / PG</span></div>
+          <div class="mx-cell" role="cell" data-level="part" data-p="P03"><span class="dot" aria-hidden="true">◐</span><span class="note">Milvus / Mongo</span></div>
+          <div class="mx-cell" role="cell" data-level="part" data-p="P04"><span class="dot" aria-hidden="true">◐</span><span class="note">只读 SQL</span></div>
+        </div>
+
+        <div class="matrix__row" role="row">
+          <div class="mx-label" role="rowheader"><b>前端工程</b><span>frontend</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P01"><span class="dot" aria-hidden="true">●</span><span class="note">Next 16</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P02"><span class="dot" aria-hidden="true">●</span><span class="note">React 19</span></div>
+          <div class="mx-cell" role="cell" data-level="light" data-p="P03"><span class="dot" aria-hidden="true">○</span><span class="note">静态页</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P04"><span class="dot" aria-hidden="true">●</span><span class="note">Vue 3</span></div>
+        </div>
+
+        <div class="matrix__row" role="row">
+          <div class="mx-label" role="rowheader"><b>异步与实时</b><span>async</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P01"><span class="dot" aria-hidden="true">●</span><span class="note">Celery + SSE</span></div>
+          <div class="mx-cell" role="cell" data-level="part" data-p="P02"><span class="dot" aria-hidden="true">◐</span><span class="note">轮询 worker</span></div>
+          <div class="mx-cell" role="cell" data-level="none" data-p="P03"><span class="dot" aria-hidden="true">–</span><span class="note">同步调用</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P04"><span class="dot" aria-hidden="true">●</span><span class="note">WS 推送</span></div>
+        </div>
+
+        <div class="matrix__row" role="row">
+          <div class="mx-label" role="rowheader"><b>自动化测试</b><span>testing</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P01"><span class="dot" aria-hidden="true">●</span><span class="note">181 用例</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P02"><span class="dot" aria-hidden="true">●</span><span class="note">259 用例</span></div>
+          <div class="mx-cell" role="cell" data-level="none" data-p="P03"><span class="dot" aria-hidden="true">–</span><span class="note">仅脚本</span></div>
+          <div class="mx-cell" role="cell" data-level="part" data-p="P04"><span class="dot" aria-hidden="true">◐</span><span class="note">11 用例</span></div>
+        </div>
+
+        <div class="matrix__row" role="row">
+          <div class="mx-label" role="rowheader"><b>容器化交付</b><span>delivery</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P01"><span class="dot" aria-hidden="true">●</span><span class="note">6 容器</span></div>
+          <div class="mx-cell" role="cell" data-level="part" data-p="P02"><span class="dot" aria-hidden="true">◐</span><span class="note">PG 单库</span></div>
+          <div class="mx-cell" role="cell" data-level="core" data-p="P03"><span class="dot" aria-hidden="true">●</span><span class="note">7 服务</span></div>
+          <div class="mx-cell" role="cell" data-level="light" data-p="P04"><span class="dot" aria-hidden="true">○</span><span class="note">demo compose</span></div>
+        </div>
+      </div>
+
+      <div class="matrix__legend reveal">
+        <span><i style="color:var(--brand)">●</i>主力实现</span>
+        <span><i style="color:color-mix(in srgb, var(--brand) 62%, var(--ink3))">◐</i>有实现，非重点</span>
+        <span><i style="color:var(--ink3)">○</i>仅基础形态</span>
+        <span><i style="color:var(--line-strong)">–</i>未涉及</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 架构主线 ============ -->
+  <section class="section" id="architecture">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">03 / Architecture</div>
+          <h2>同一套分层，换四种业务</h2>
+          <p>
+            四个系统没有共用代码，但共用同一套分层习惯：<b>交互层不写业务、能力层不碰界面、数据层不做判断</b>。
+            换业务时替换的是场景与规则，不是骨架。
+          </p>
+        </div>
+        <div class="sec-head__aside">
+          layers 4<br>按依赖方向自上而下
+        </div>
+      </div>
+
+      <div class="arch reveal">
+        <div class="band">
+          <div class="band__label"><b>业务场景</b><span>scenario</span></div>
+          <div class="band__items">
+            <span class="chip">店铺运营与投放</span><span class="chip">合同流转与用印</span><span class="chip">企业文档问答</span><span class="chip">多源深度检索</span>
+          </div>
+          <div class="band__meta"><i>01</i><span>4 类业务</span></div>
+        </div>
+
+        <div class="band">
+          <div class="band__label"><b>交互层</b><span>interface</span></div>
+          <div class="band__items">
+            <span class="chip">Next.js 16 App Router</span><span class="chip">React 19 + Server Actions</span><span class="chip">Vue 3 + Vite 控制台</span><span class="chip">FastAPI 静态页</span>
+          </div>
+          <div class="band__meta"><i>02</i><span>3 套前端栈</span></div>
+        </div>
+
+        <div class="band band--accent">
+          <div class="band__label"><b>能力层</b><span>capability</span></div>
+          <div class="band__items">
+            <span class="chip">LangGraph 状态机</span><span class="chip">DeepAgents 多智能体</span><span class="chip">RRF + HyDE 混合检索</span><span class="chip">Celery 异步任务</span><span class="chip">自研审批流引擎</span>
+          </div>
+          <div class="band__meta"><i>03</i><span>5 类能力</span></div>
+        </div>
+
+        <div class="band">
+          <div class="band__label"><b>数据层</b><span>storage</span></div>
+          <div class="band__items">
+            <span class="chip">MySQL 8</span><span class="chip">PostgreSQL 16</span><span class="chip">Redis 7</span><span class="chip">Milvus</span><span class="chip">MinIO</span><span class="chip">MongoDB</span>
+          </div>
+          <div class="band__meta"><i>04</i><span>6 个存储</span></div>
+        </div>
+      </div>
+
+      <div class="arch__note reveal">
+        <span>类型严格：TS strict，禁 any</span>
+        <span>迁移可重放：migrate reset 能重建</span>
+        <span>失败显式：缺依赖就报错，不编数据</span>
+        <span>端口单一真源：不硬编码</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 04 可复核的数字 ============ -->
+  <section class="section" id="evidence">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">04 / Numbers</div>
+          <h2>数字，以及它是怎么算出来的</h2>
+          <p>
+            这里的每个数都写了统计口径。口径比数字重要：<b>说清「怎么算的」，比报一个大数字有用</b>。
+            统计脚本与命令放在仓库 <code>docs/VERIFY.md</code>，可以自己跑一遍。
+          </p>
+        </div>
+        <div class="sec-head__aside">
+          measured 2026-11-01<br>static analysis
+        </div>
+      </div>
+
+      <div class="evidence">
+        <div class="ev reveal">
+          <div class="ev__num"><span data-count="94653">94,653</span><span class="ev__unit">行</span></div>
+          <div class="ev__title">源码总行数</div>
+          <div class="ev__desc">统计 .py / .ts / .tsx / .vue / .sql / .css / .html / .ps1 / .sh，排除 node_modules、.next、.git 与锁文件</div>
+          <div class="ev__src">docs/VERIFY.md · count_loc.py</div>
+        </div>
+
+        <div class="ev reveal">
+          <div class="ev__num"><span data-count="451">451</span><span class="ev__unit">个</span></div>
+          <div class="ev__title">测试用例</div>
+          <div class="ev__desc">静态匹配 <code>def test_</code> / <code>it(</code> / <code>test(</code> 计数，不是覆盖率，也不是「全部通过」</div>
+          <div class="ev__src">P01 181 · P02 259 · P04 11 · P03 无套件</div>
+        </div>
+
+        <div class="ev reveal">
+          <div class="ev__num"><span data-count="574">574</span><span class="ev__unit">个</span></div>
+          <div class="ev__title">源码文件</div>
+          <div class="ev__desc">与行数同一遍遍历得出；四个仓库的源码树合计</div>
+          <div class="ev__src">274 + 201 + 64 + 35 = 574</div>
+        </div>
+
+        <div class="ev reveal">
+          <div class="ev__num"><span data-count="61">61</span><span class="ev__unit">次</span></div>
+          <div class="ev__title">公开提交</div>
+          <div class="ev__desc">GitHub API 拉取各仓库默认分支提交数；仓库均为 2026 年 10 月之后建立</div>
+          <div class="ev__src">GET /repos/:owner/:repo/commits</div>
+        </div>
+      </div>
+
+      <div class="callout reveal">
+        <b>两个不写：</b>没有做并发压测，所以不写 QPS / P95；没有在本机统一复跑四套依赖数据库的服务，
+        所以只报「用例数」不报「通过率」。<br>这两条不是谦虚，是口径。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 已知边界 ============ -->
+  <section class="section" id="boundary">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">05 / Boundary</div>
+          <h2>已知边界</h2>
+          <p>能跑的部分写清楚，跑不动的部分也写清楚。以下六条都是当前真实状态，不是「后续规划」。</p>
+        </div>
+        <div class="sec-head__aside">
+          updated 2026-11-01<br>6 items
+        </div>
+      </div>
+
+      <div class="bounds reveal">
+        <div class="bound">
+          <div class="bound__n">01</div>
+          <div>
+            <h3>没有在线 demo</h3>
+            <p>四套系统都依赖本地数据库或向量库，仓库给的是可复现的启动路径，不是一个点开就能用的链接。这个页面本身是静态站，不需要后端。</p>
+          </div>
+        </div>
+
+        <div class="bound">
+          <div class="bound__n">02</div>
+          <div>
+            <h3>P03 没有测试套件</h3>
+            <p>知识库仓库里只有 <code>test/04-test_graph_flow.py</code> 一个链路脚本，没有 pytest 套件；README 也还停在标题，是最需要补的一块。</p>
+          </div>
+        </div>
+
+        <div class="bound">
+          <div class="bound__n">03</div>
+          <div>
+            <h3>外部服务需自备</h3>
+            <p>大模型 Key、Milvus 集群、RAGFlow、Tavily 都不随仓库分发。缺 Key 时链路会明确失败，而不是返回编造的结果。</p>
+          </div>
+        </div>
+
+        <div class="bound">
+          <div class="bound__n">04</div>
+          <div>
+            <h3>没有性能数字</h3>
+            <p>未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。</p>
+          </div>
+        </div>
+
+        <div class="bound">
+          <div class="bound__n">05</div>
+          <div>
+            <h3>提交历史偏短</h3>
+            <p>四个仓库集中在 2026 年 10 月推进，提交粒度偏粗，看不到完整演进过程。代码是结果，不是过程记录。</p>
+          </div>
+        </div>
+
+        <div class="bound">
+          <div class="bound__n">06</div>
+          <div>
+            <h3>界面以功能为先</h3>
+            <p>四个系统都没有独立设计系统，也没有做无障碍审计；这个页面做了键盘可达与减动效适配，但没做完整 WCAG 验收。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 06 关于 ============ -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">06 / About</div>
+          <h2>关于我</h2>
+          <p>四个系统之外，再交代三件事：<b>在做什么、怎么做事、怎么联系</b>。不写形容词，写状态。</p>
+        </div>
+      </div>
+
+      <div class="about">
+        <div class="reveal">
+          <p class="about__lead">
+            我是王鑫鸿，做 AI 应用开发与全栈实现。
+          </p>
+          <p>
+            习惯先把业务约束写清楚再写代码：状态怎么流转、失败怎么显式、数字怎么复核。
+            上面四个系统覆盖电商运营、法务审批、知识管理、检索四类场景，共同点是都能在本地从零重建。
+            这个页面不放手机号、邮箱和简历文件 —— 需要联系，走 GitHub 就好。
+          </p>
+
+          <div class="taggroup">
+            <div class="taggroup__label">方向</div>
+            <div class="tags">
+              <span class="tag">Agent 编排</span><span class="tag">RAG 检索</span><span class="tag">业务系统全栈</span><span class="tag">工程验收</span>
+            </div>
+          </div>
+
+          <div class="taggroup">
+            <div class="taggroup__label">语言</div>
+            <div class="tags">
+              <span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">SQL</span>
+            </div>
+          </div>
+
+          <div class="taggroup">
+            <div class="taggroup__label">后端与数据</div>
+            <div class="tags">
+              <span class="tag">FastAPI</span><span class="tag">Next.js</span><span class="tag">Prisma</span><span class="tag">Celery</span><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Milvus</span><span class="tag">MongoDB</span>
+            </div>
+          </div>
+
+          <div class="taggroup">
+            <div class="taggroup__label">智能与工程</div>
+            <div class="tags">
+              <span class="tag">LangGraph</span><span class="tag">DeepAgents</span><span class="tag">BGE-M3</span><span class="tag">RAGFlow</span><span class="tag">Docker</span><span class="tag">pytest</span><span class="tag">Vitest</span><span class="tag">Playwright</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="timeline">
+            <div class="tl">
+              <div class="tl__date">2026-10-10</div>
+              <div class="tl__title">企业知识库</div>
+              <div class="tl__desc">LangGraph 双链路：导入编排与混合检索</div>
+            </div>
+            <div class="tl">
+              <div class="tl__date">2026-10-18</div>
+              <div class="tl__title">电商运营助手</div>
+              <div class="tl__desc">FastAPI + Celery + Agent，六容器全栈</div>
+            </div>
+            <div class="tl">
+              <div class="tl__date">2026-10-29</div>
+              <div class="tl__title">深度搜索 Agent</div>
+              <div class="tl__desc">主从智能体 + 执行层护栏</div>
+            </div>
+            <div class="tl">
+              <div class="tl__date">2026-10-30</div>
+              <div class="tl__title">合同审批系统</div>
+              <div class="tl__desc">自研流程引擎，259 个用例</div>
+            </div>
+            <div class="tl tl--now">
+              <div class="tl__date">2026-11-01</div>
+              <div class="tl__title">个人作品矩阵</div>
+              <div class="tl__desc">把四个系统收进一页可复核的索引</div>
+            </div>
+          </div>
+
+          <div class="contact">
+            <div class="contact__label">Contact</div>
+            <p>站内不放手机号、邮箱与简历文件。合作或交流，直接开 Issue 或看仓库即可。</p>
+            <a class="btn btn--sm" href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">
+              github.com/xinhongwang138-hue
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ 页脚 ============ -->
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__left">
+      <b>王鑫鸿 · 个人作品矩阵</b> · 静态站点，无追踪脚本<br>
+      数据统计于 2026-11-01 · 与 GitHub 仓库同步维护
+    </div>
+    <div class="foot__links">
+      <a href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/xinhongwang138-hue/WangXinhong-Personal-Work-Matrix" target="_blank" rel="noopener">本站源码</a>
+      <a href="#top">回到顶部 ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

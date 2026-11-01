@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07090E"/>
+      <stop offset="1" stop-color="#0C1220"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.1" r="0.7">
+      <stop offset="0" stop-color="#5B8CFF" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#5B8CFF" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0V60" fill="none" stroke="#FFFFFF" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <g font-family="'PingFang SC','Microsoft YaHei','Segoe UI',sans-serif">
+    <g font-family="'Cascadia Code',Consolas,monospace" font-size="16" fill="#8FA0B8" letter-spacing="2">
+      <circle cx="90" cy="88" r="4" fill="#45D6A0"/>
+      <text x="108" y="94">AI 应用工程 · 全栈实现 · 2026</text>
+    </g>
+
+    <text x="88" y="200" font-size="72" font-weight="700" fill="#E9EEF7" letter-spacing="-2">王鑫鸿 · 个人作品矩阵</text>
+    <text x="88" y="262" font-size="30" fill="#9CA8BA" letter-spacing="0.5">四个系统，一条主线：把 AI 能力做成能跑的产品</text>
+
+    <g font-family="'Cascadia Code',Consolas,monospace" font-size="19" fill="#C7D3E6">
+      <g>
+        <rect x="88" y="330" width="248" height="86" rx="12" fill="#0F131C" stroke="#253045"/>
+        <text x="108" y="362" fill="#5B8CFF" font-size="13" letter-spacing="1.5">P01</text>
+        <text x="108" y="392" font-size="19">电商运营助手</text>
+      </g>
+      <g>
+        <rect x="352" y="330" width="248" height="86" rx="12" fill="#0F131C" stroke="#253045"/>
+        <text x="372" y="362" fill="#5B8CFF" font-size="13" letter-spacing="1.5">P02</text>
+        <text x="372" y="392" font-size="19">合同审批系统</text>
+      </g>
+      <g>
+        <rect x="616" y="330" width="248" height="86" rx="12" fill="#0F131C" stroke="#253045"/>
+        <text x="636" y="362" fill="#5B8CFF" font-size="13" letter-spacing="1.5">P03</text>
+        <text x="636" y="392" font-size="19">企业知识库</text>
+      </g>
+      <g>
+        <rect x="880" y="330" width="232" height="86" rx="12" fill="#0F131C" stroke="#253045"/>
+        <text x="900" y="362" fill="#5B8CFF" font-size="13" letter-spacing="1.5">P04</text>
+        <text x="900" y="392" font-size="19">深度搜索 Agent</text>
+      </g>
+    </g>
+
+    <g font-family="'Cascadia Code',Consolas,monospace" font-size="17" fill="#6D7A8E" letter-spacing="1">
+      <text x="88" y="500">94,653 行源码</text>
+      <text x="348" y="500">451 个测试用例</text>
+      <text x="608" y="500">4 个自建系统</text>
+      <text x="868" y="500">61 次提交</text>
+    </g>
+
+    <line x1="88" y1="536" x2="1112" y2="536" stroke="#1F2735"/>
+
+    <g font-family="'Cascadia Code',Consolas,monospace" font-size="15" fill="#8FA0B8" letter-spacing="1">
+      <text x="88" y="576">github.com/xinhongwang138-hue</text>
+      <text x="1112" y="576" text-anchor="end">PERSONAL WORK MATRIX / 2026</text>
+    </g>
+  </g>
+</svg>
