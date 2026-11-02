@@ -6,8 +6,7 @@
 <title>王鑫鸿 · 个人作品矩阵 | AI 应用工程</title>
 <meta name="description" content="王鑫鸿的个人作品矩阵：电商运营助手、合同审批系统、企业知识库、深度搜索 Agent。四个可本地运行的系统，附可复核的代码规模、测试用例与已知边界。">
 <meta name="author" content="王鑫鸿">
-<meta name="theme-color" content="#07090E" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#07090E">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="王鑫鸿 · 个人作品矩阵">
 <meta property="og:title" content="王鑫鸿 · 个人作品矩阵">
@@ -25,8 +24,9 @@
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/app.css">
 <script>
-  // 首屏前定主题，避免闪白
+  // 首屏前定主题，避免闪白；同时标记 JS 可用，供入场动效做渐进增强
   (function () {
+    document.documentElement.classList.add("js");
     try {
       var saved = localStorage.getItem("wxh-theme");
       var mql = window.matchMedia("(prefers-color-scheme: light)");
@@ -103,7 +103,7 @@
   <section class="hero">
     <div class="wrap hero__grid">
       <div>
-        <span class="eyebrow"><i class="eyebrow__dot" aria-hidden="true"></i>AI 应用开发 · 全栈实现 · 独立完成</span>
+        <span class="eyebrow"><i class="eyebrow__dot" aria-hidden="true"></i>求职中 · AI 应用开发 / 后端 · 1 周内到岗</span>
 
         <h1>四个系统，一条主线：<br><span class="accent">把 AI 能力做成能跑的产品</span></h1>
 
@@ -144,40 +144,52 @@
         </div>
       </div>
 
-      <aside class="panel" aria-label="四个系统的代码规模">
+      <aside class="panel" aria-label="四个系统的主链路一览">
         <div class="panel__head">
-          <span class="panel__title"><i aria-hidden="true"></i>System Matrix</span>
-          <span class="panel__meta">4 / 4</span>
+          <span class="panel__title"><i aria-hidden="true"></i>System Map</span>
+          <span class="panel__meta">4 systems / 1 skeleton</span>
         </div>
-        <div class="panel__grid">
-          <a class="tile" href="#p01">
-            <div class="tile__idx">P01</div>
-            <div class="tile__name">电商运营助手</div>
-            <div class="tile__meta">Python · 43,068 行</div>
-            <div class="tile__bar" aria-label="占全部源码 45.5%"><em>LOC</em><span class="track"><span style="width:45.5%"></span></span><b>45.5%</b></div>
+        <div class="panel__rows">
+          <a class="mrow" href="#p01">
+            <span class="mrow__id">P01</span>
+            <span class="mrow__chain">
+              <span class="mnode">Next.js 16</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--key">LangGraph</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode">Celery</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--store">3 库分离</span>
+            </span>
           </a>
-          <a class="tile" href="#p02">
-            <div class="tile__idx">P02</div>
-            <div class="tile__name">合同审批系统</div>
-            <div class="tile__meta">TypeScript · 37,702 行</div>
-            <div class="tile__bar" aria-label="占全部源码 39.8%"><em>LOC</em><span class="track"><span style="width:39.8%"></span></span><b>39.8%</b></div>
+          <a class="mrow" href="#p02">
+            <span class="mrow__id">P02</span>
+            <span class="mrow__chain">
+              <span class="mnode">App Router</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--key">流程引擎</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode">轮询 worker</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--store">PostgreSQL</span>
+            </span>
           </a>
-          <a class="tile" href="#p03">
-            <div class="tile__idx">P03</div>
-            <div class="tile__name">企业知识库</div>
-            <div class="tile__meta">Python · 10,785 行</div>
-            <div class="tile__bar" aria-label="占全部源码 11.4%"><em>LOC</em><span class="track"><span style="width:11.4%"></span></span><b>11.4%</b></div>
+          <a class="mrow" href="#p03">
+            <span class="mrow__id">P03</span>
+            <span class="mrow__chain">
+              <span class="mnode">FastAPI</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--key">双链路</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--none">同步调用</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--store">Milvus</span>
+            </span>
           </a>
-          <a class="tile" href="#p04">
-            <div class="tile__idx">P04</div>
-            <div class="tile__name">深度搜索 Agent</div>
-            <div class="tile__meta">Python · 3,098 行</div>
-            <div class="tile__bar" aria-label="占全部源码 3.3%"><em>LOC</em><span class="track"><span style="width:3.3%"></span></span><b>3.3%</b></div>
+          <a class="mrow" href="#p04">
+            <span class="mrow__id">P04</span>
+            <span class="mrow__chain">
+              <span class="mnode">Vue 3</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--key">DeepAgents</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode">WS 推送</span><span class="marrow" aria-hidden="true"></span>
+              <span class="mnode mnode--store">只读 SQL</span>
+            </span>
           </a>
         </div>
         <div class="panel__foot">
-          <span>4 systems / 3 languages / 1 line</span>
-          <span>LOC 统计口径见 04</span>
+          <span>入口 → 编排 → 异步 → 存储</span>
+          <span>点开看单系统</span>
         </div>
       </aside>
     </div>
@@ -192,7 +204,7 @@
           <h2>四个系统，四种业务形态</h2>
           <p>
             共同点不是技术栈，而是交付标准：<b>数据库迁移可重放、失败要显式、边界写进文档</b>。
-            下面每张卡都按「主链路 / 工程约束 / 验收」三行给硬信息，写不出来的就不写。
+            每张卡先给一张链路图，再给「工程约束 / 验收」两行硬信息，写不出来的就不写。
           </p>
         </div>
         <div class="sec-head__aside">
@@ -215,11 +227,20 @@
             Agent 任务也要走审批和追踪。
           </p>
 
-          <div class="facts">
-            <div class="fact">
-              <span class="fact__label">主链路</span>
-              <span class="fact__text">Next.js 16 工作台 → FastAPI → <b>Celery + Redis</b> 队列 → LangGraph Agent（Postgres checkpointer）</span>
+          <figure class="pipe" aria-label="P01 主链路：Next.js 16 工作台调用 FastAPI，任务进 Celery 与 Redis 队列，由 LangGraph Agent 执行，检查点写 PostgreSQL">
+            <div class="pipe__lane">
+              <span class="pipe__node"><b>工作台</b><i>Next.js 16</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node"><b>接口</b><i>FastAPI</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node"><b>队列</b><i>Celery · Redis</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node pipe__node--key"><b>编排</b><i>LangGraph</i></span>
             </div>
+            <div class="pipe__note">存储分离：MySQL 业务 · Redis 队列 · PostgreSQL 检查点</div>
+          </figure>
+
+          <div class="facts">
             <div class="fact">
               <span class="fact__label">工程约束</span>
               <span class="fact__text">业务 MySQL、队列 Redis、检查点 Postgres <b>三库分离</b>；六个容器一条 compose 起全栈；本地 8001 与容器内 8000 的差异写进 README 防混用</span>
@@ -259,11 +280,20 @@
             并留下不可篡改的审计链。
           </p>
 
-          <div class="facts">
-            <div class="fact">
-              <span class="fact__label">主链路</span>
-              <span class="fact__text">Next.js 16 App Router + Server Actions → <b>自研流程引擎</b>：会签 / 或签 / 条件分支 / 加签转签 / 用印归档</span>
+          <figure class="pipe" aria-label="P02 主链路：App Router 页面通过 Server Actions 提交，进入自研流程引擎处理会签、或签、条件分支与加签转签，经 Prisma 落 PostgreSQL">
+            <div class="pipe__lane">
+              <span class="pipe__node"><b>页面</b><i>App Router</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node"><b>动作</b><i>Server Actions</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node pipe__node--key"><b>流程引擎</b><i>会签·或签·条件·加签</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node"><b>ORM</b><i>Prisma</i></span>
             </div>
+            <div class="pipe__note">存储 PostgreSQL 16 · 定义快照不可变 · 审计链只追加</div>
+          </figure>
+
+          <div class="facts">
             <div class="fact">
               <span class="fact__label">工程约束</span>
               <span class="fact__text">TS strict + <code>noUncheckedIndexedAccess</code>、禁 <code>any</code>；金额一律 <b>Decimal(18,2)</b> 禁浮点；时间存 UTC、展示 Asia/Shanghai；定义快照不可变</span>
@@ -303,11 +333,35 @@
             一条把 PDF 洗干净入库，一条做混合检索并给出引用。
           </p>
 
-          <div class="facts">
-            <div class="fact">
-              <span class="fact__label">主链路</span>
-              <span class="fact__text">MinerU 解析 → 图片抽取 → 分块 → <b>BGE-M3 向量化</b> → Milvus 入库；原图进 MinIO，历史进 Mongo</span>
+          <figure class="pipe pipe--lanes" aria-label="P03 两条链路：入库链路 MinerU 解析、分块、BGE-M3 向量化后写入 Milvus；查询链路向量与 HyDE 双路召回、RRF 融合、rerank 重排，最后走 MCP 联网兜底">
+            <div class="pipe__line">
+              <span class="pipe__tag">入库</span>
+              <div class="pipe__lane">
+                <span class="pipe__node"><b>解析</b><i>MinerU</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>切分</b><i>chunk</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>向量化</b><i>BGE-M3</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>入库</b><i>Milvus</i></span>
+              </div>
             </div>
+            <div class="pipe__line">
+              <span class="pipe__tag">查询</span>
+              <div class="pipe__lane">
+                <span class="pipe__node pipe__node--key"><b>双路召回</b><i>向量 + HyDE</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>融合</b><i>RRF</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>重排</b><i>rerank</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>兜底</b><i>MCP 联网</i></span>
+              </div>
+            </div>
+            <div class="pipe__note">原图 MinIO · 历史 Mongo · 向量 Milvus</div>
+          </figure>
+
+          <div class="facts">
             <div class="fact">
               <span class="fact__label">工程约束</span>
               <span class="fact__text">查询侧向量检索 + HyDE 双路召回 → <b>RRF 融合</b> → rerank → 联网兜底（MCP）；torch 线程数必须在 import 前锁定，否则 BGE-M3 会 segfault</span>
@@ -347,11 +401,20 @@
             把检索下沉给三个子智能体，执行层加硬护栏。
           </p>
 
-          <div class="facts">
-            <div class="fact">
-              <span class="fact__label">主链路</span>
-              <span class="fact__text">DeepAgents 主智能体按 <b>description 路由</b>三路子智能体 → 工具层（Tavily / 只读 SQL / RAGFlow / 多格式文档）→ 主智能体成文</span>
+          <figure class="pipe" aria-label="P04 主链路：DeepAgents 主智能体按 description 路由三路子智能体，调用 Tavily、只读 SQL、RAGFlow 等工具，最后由主智能体汇总成文">
+            <div class="pipe__lane">
+              <span class="pipe__node"><b>主控</b><i>DeepAgents</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node pipe__node--key"><b>子智能体 ×3</b><i>按 description</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node"><b>工具层</b><i>Tavily·SQL·RAG</i></span>
+              <span class="pipe__arrow" aria-hidden="true"></span>
+              <span class="pipe__node"><b>成文</b><i>主智能体汇总</i></span>
             </div>
+            <div class="pipe__note">轨迹 WebSocket 按 thread_id 定向推送</div>
+          </figure>
+
+          <div class="facts">
             <div class="fact">
               <span class="fact__label">工程约束</span>
               <span class="fact__text">SQL 只读、路径穿越、检索次数预算全部在<b>执行层硬校验</b>，不靠提示词自觉；异常收敛成「报错但不抛栈」</span>

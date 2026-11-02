@@ -23,7 +23,7 @@ html[data-theme="dark"] {
   /* —— 文本 —— */
   --ink1: #E9EEF7;
   --ink2: #9CA8BA;
-  --ink3: #6D7A8E;
+  --ink3: #7C8A9E;
 
   /* —— 强调色：只保留一个主色 —— */
   --brand: #5B8CFF;
@@ -65,7 +65,7 @@ html[data-theme="light"] {
 
   --ink1: #0D121B;
   --ink2: #4B5668;
-  --ink3: #6E7A8C;
+  --ink3: #5B6678;
 
   --brand: #2A5BE0;
   --brand-hover: #1E4AC4;

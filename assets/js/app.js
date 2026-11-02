@@ -110,7 +110,7 @@
         var on = i === idx;
         a.classList.toggle("is-active", on);
         if (on) {
-          a.setAttribute("aria-current", "true");
+          a.setAttribute("aria-current", "location");
         } else {
           a.removeAttribute("aria-current");
         }
@@ -152,6 +152,8 @@
   }
 
   /* ---------- 数字滚动 ---------- */
+  var printing = false;
+
   function format(n) {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -167,6 +169,11 @@
     var dur = 1100;
 
     function tick(now) {
+      // 打印时直接落终值，避免把动画中途的数字印出去
+      if (printing) {
+        el.textContent = format(target);
+        return;
+      }
       var p = Math.min((now - start) / dur, 1);
       // easeOutCubic
       var eased = 1 - Math.pow(1 - p, 3);
@@ -222,5 +229,29 @@
     });
   } else {
     counters.forEach(countUp);
+  }
+
+  /* ---------- 打印降级：把数字落到终值、让入场元素全部可见 ---------- */
+  function finalizeForPrint() {
+    printing = true;
+    counters.forEach(function (el) {
+      var t = parseInt(el.getAttribute("data-count"), 10);
+      if (!isNaN(t)) el.textContent = format(t);
+    });
+    reveals.forEach(function (el) {
+      el.classList.add("is-in");
+    });
+  }
+
+  window.addEventListener("beforeprint", finalizeForPrint);
+
+  // 兼容通过 CDP / 打印预览切换媒体类型、但未派发 beforeprint 的场景
+  var printMq = window.matchMedia && window.matchMedia("print");
+  if (printMq) {
+    var onPrintMq = function (e) {
+      if (e.matches) finalizeForPrint();
+    };
+    if (printMq.addEventListener) printMq.addEventListener("change", onPrintMq);
+    else if (printMq.addListener) printMq.addListener(onPrintMq);
   }
 })();
