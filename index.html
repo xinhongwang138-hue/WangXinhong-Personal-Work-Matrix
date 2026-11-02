@@ -453,12 +453,13 @@
           <div class="sec-kicker">02 / Screens</div>
           <h2>先看界面，再看实现</h2>
           <p>
-            下面两张是<b>本地实例的实拍截图</b>：服务在本机跑着，直接截的，没改页面、没修图。
-            另外两套的源码不在这台机器上，用<b>线框示意图</b>画出界面分区，地址条上标了「非真实截图」，不当作截图。
+            下面三张是<b>本地实例的实拍截图</b>：三个服务分别跑在 3000 / 3001 / 8011 上，直接截的，没改页面、没修图。
+            深度搜索的源码和演示库都在本机，但没配模型 Key，跑不出真实问答，所以按它前端的实际分区画了<b>线框示意图</b>，
+            地址条上标「非真实截图」，不当作截图。
           </p>
         </div>
         <div class="sec-head__aside">
-          2 实拍 / 2 示意图<br>
+          3 实拍 / 1 示意图<br>
           截于 2026-11-02
         </div>
       </div>
@@ -483,6 +484,29 @@
             <p class="shot__desc">
               库里没数据时，页面不编造示例：明写「尚未抽取」，把护栏边界（单条 SELECT、表白名单、最多 500 行）
               摆在输入框上方，422 的原始原因也直接贴出来。这页的重点不是「能生成 SQL」，而是「生成不出时用户看到什么」。
+            </p>
+          </figcaption>
+        </figure>
+
+        <figure class="shot reveal">
+          <div class="shot__screen">
+            <div class="shot__chrome" aria-hidden="true">
+              <span class="shot__dots"><i></i><i></i><i></i></span>
+              <span class="shot__addr">127.0.0.1:3001/contracts</span>
+            </div>
+            <div class="shot__canvas">
+              <img src="assets/img/demo-p02.webp" width="1280" height="800" loading="lazy" decoding="async"
+                   alt="合同审批系统的合同管理页：顶部是搜索框与状态筛选，表格列出六份合同，状态列依次显示已归档、已驳回、履行中、待用印、审批中、草稿">
+            </div>
+          </div>
+          <figcaption class="shot__cap">
+            <div class="shot__head">
+              <span class="shot__name">P02 · 合同审批 — 合同台账</span>
+              <span class="shot__badge shot__badge--real">实拍</span>
+            </div>
+            <p class="shot__desc">
+              六份种子合同刚好占满状态机里的六种状态：草稿、审批中、待用印、履行中、已驳回、已归档。
+              台账按角色权限与数据范围过滤，金额、相对方、到期日都是库里的真实字段，不是前端写死的样例。
             </p>
           </figcaption>
         </figure>
@@ -519,106 +543,46 @@
               <span class="shot__flag">非真实截图</span>
             </div>
             <div class="shot__canvas">
-              <div class="wire" role="img" aria-label="合同审批界面结构示意：顶部是合同文件名与命中条款数，中部三栏分别是条款抽取字段、正文与风险条款高亮、四级审批链，底部是风险等级与当前状态">
+              <div class="wire" role="img" aria-label="深度搜索界面结构示意：顶部是会话编号与连接状态，左侧面板是检索与工具调用轨迹加输入框，右侧面板是本次会话的产出文件列表">
                 <div class="wire__bar">
-                  <span>采购合同_V3.pdf</span>
+                  <span>深度搜索 Agent</span>
                   <span class="wire__grow"></span>
-                  <span>条款 42 · 命中 3</span>
-                </div>
-                <div class="wire__body wire__body--contract">
-                  <div class="wire__col">
-                    <span class="wire__label">条款抽取 · LLM 字段</span>
-                    <div class="wire__lines">
-                      <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-                    </div>
-                    <div class="wire__chips"><span class="wire__chip">已抽 7 字段</span></div>
-                  </div>
-                  <div class="wire__col">
-                    <span class="wire__label">正文 · 风险条款高亮</span>
-                    <div class="wire__lines">
-                      <i></i><i></i><i></i><i class="is-hit"></i><i></i><i></i>
-                      <i></i><i class="is-hit"></i><i></i><i></i><i></i><i></i>
-                    </div>
-                    <div class="wire__chips"><span class="wire__chip">命中 3 处</span></div>
-                  </div>
-                  <div class="wire__col">
-                    <span class="wire__label">审批链</span>
-                    <span class="wire__step is-done">规则库校验</span>
-                    <span class="wire__step is-done">模型研判</span>
-                    <span class="wire__step is-live">法务复核</span>
-                    <span class="wire__step">归档留痕</span>
-                    <div class="wire__chips"><span class="wire__chip">待法务</span></div>
-                  </div>
-                </div>
-                <div class="wire__bar">
-                  <span>风险等级 中</span>
-                  <span class="wire__grow"></span>
-                  <span>状态 待复核</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <figcaption class="shot__cap">
-            <div class="shot__head">
-              <span class="shot__name">P02 · 合同审批 — 条款复核</span>
-              <span class="shot__badge shot__badge--mock">示意图</span>
-            </div>
-            <p class="shot__desc">
-              源码不在这台机器上，按仓库里的状态机与接口定义画出分区：左边抽字段、中间高亮命中条款、右边是审批链。
-              它只说明<b>信息怎么摆、状态怎么流</b>，不代表最终视觉。
-            </p>
-          </figcaption>
-        </figure>
-
-        <figure class="shot reveal">
-          <div class="shot__screen">
-            <div class="shot__chrome" aria-hidden="true">
-              <span class="shot__dots"><i></i><i></i><i></i></span>
-              <span class="shot__addr shot__addr--mock">界面结构示意 · wireframe</span>
-              <span class="shot__flag">非真实截图</span>
-            </div>
-            <div class="shot__canvas">
-              <div class="wire" role="img" aria-label="深度搜索界面结构示意：顶部是问题输入，左列是三路子智能体与已用检索预算，右列是主智能体汇总的报告正文，底部是 WebSocket 轨迹推送状态">
-                <div class="wire__bar">
-                  <span class="wire__grow">问：近三年储能装机的增长瓶颈在哪</span>
-                  <span>开始</span>
+                  <span>会话 · thread_id</span>
+                  <span>已连接</span>
                 </div>
                 <div class="wire__body wire__body--search">
                   <div class="wire__col">
-                    <span class="wire__label">子智能体 · 按 description 路由</span>
-                    <span class="wire__step is-done">网页检索 Tavily</span>
-                    <span class="wire__step is-done">只读 SQL 数据库</span>
-                    <span class="wire__step is-live">知识库 RAG</span>
+                    <span class="wire__label">检索轨迹 · 事件时间线</span>
+                    <span class="wire__step is-done">tool_end · 网络搜索助手</span>
+                    <span class="wire__step is-done">tool_end · 数据库查询助手</span>
+                    <span class="wire__step is-live">assistant_call · 子智能体</span>
                     <div class="wire__chips">
-                      <span class="wire__chip">预算 20</span>
-                      <span class="wire__chip">已用 12</span>
+                      <span class="wire__chip">时间戳</span>
+                      <span class="wire__chip">输出摘要</span>
                     </div>
                   </div>
                   <div class="wire__col">
-                    <span class="wire__label">报告 · 主智能体汇总</span>
-                    <div class="wire__lines">
-                      <i></i><i></i><i></i><i></i><i></i><i></i>
-                      <i></i><i></i><i></i><i></i><i></i>
-                    </div>
-                    <div class="wire__chips"><span class="wire__chip">引用 5 条</span></div>
+                    <span class="wire__label">产出文件</span>
+                    <div class="wire__lines"><i></i><i></i><i></i></div>
+                    <div class="wire__chips"><span class="wire__chip">报告 .md</span></div>
                   </div>
                 </div>
                 <div class="wire__bar">
-                  <span>轨迹按 thread_id 推送</span>
+                  <span>输入问题 · 回车提交</span>
                   <span class="wire__grow"></span>
-                  <span>3 路 / 12 次工具</span>
+                  <span>上传附件</span>
                 </div>
               </div>
             </div>
           </div>
           <figcaption class="shot__cap">
             <div class="shot__head">
-              <span class="shot__name">P04 · 深度搜索 — 多智能体轨迹</span>
+              <span class="shot__name">P04 · 深度搜索 — 会话界面</span>
               <span class="shot__badge shot__badge--mock">示意图</span>
             </div>
             <p class="shot__desc">
-              同样按代码里的路由与推送逻辑画分区：左列是子智能体的运行状态与检索预算计数，中间是汇总成文，
-              底部一行是 WebSocket 按 <code>thread_id</code> 推的轨迹。
+              按 <code>App.vue</code> 的实际分区画，不按想象画：顶部是会话编号与连接状态，左边是轨迹时间线加输入框，
+              右边是这次会话的产出文件。三路子智能体、检索次数预算都在服务端，界面上没有计数条。
             </p>
           </figcaption>
         </figure>

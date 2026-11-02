@@ -1218,8 +1218,9 @@ html[data-theme="light"] .pipe__node:not(.pipe__node--key) {
   grid-template-columns: 0.85fr 1.5fr 0.95fr;
 }
 
+/* 两栏比例照搬 P04 前端的 1.55fr / 1fr */
 .wire__body--search {
-  grid-template-columns: 1fr 1.35fr;
+  grid-template-columns: 1.55fr 1fr;
 }
 
 .wire__col {
