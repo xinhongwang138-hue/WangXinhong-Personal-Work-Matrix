@@ -453,13 +453,12 @@
           <div class="sec-kicker">02 / Screens</div>
           <h2>先看界面，再看实现</h2>
           <p>
-            下面三张是<b>本地实例的实拍截图</b>：三个服务分别跑在 3000 / 3001 / 8011 上，直接截的，没改页面、没修图。
-            深度搜索的源码和演示库都在本机，但没配模型 Key，跑不出真实问答，所以按它前端的实际分区画了<b>线框示意图</b>，
-            地址条上标「非真实截图」，不当作截图。
+            下面四张是<b>本地实例的实拍截图</b>：四个服务分别跑在 3000 / 3001 / 5173 / 8011 上，直接截的，
+            没改页面、没修图，地址条就是当时的地址。哪套系统起不来，才退回线框示意图并在地址条上标「非真实截图」。
           </p>
         </div>
         <div class="sec-head__aside">
-          3 实拍 / 1 示意图<br>
+          4 张实拍<br>
           截于 2026-11-02
         </div>
       </div>
@@ -539,50 +538,22 @@
           <div class="shot__screen">
             <div class="shot__chrome" aria-hidden="true">
               <span class="shot__dots"><i></i><i></i><i></i></span>
-              <span class="shot__addr shot__addr--mock">界面结构示意 · wireframe</span>
-              <span class="shot__flag">非真实截图</span>
+              <span class="shot__addr">127.0.0.1:5173</span>
             </div>
             <div class="shot__canvas">
-              <div class="wire" role="img" aria-label="深度搜索界面结构示意：顶部是会话编号与连接状态，左侧面板是检索与工具调用轨迹加输入框，右侧面板是本次会话的产出文件列表">
-                <div class="wire__bar">
-                  <span>深度搜索 Agent</span>
-                  <span class="wire__grow"></span>
-                  <span>会话 · thread_id</span>
-                  <span>已连接</span>
-                </div>
-                <div class="wire__body wire__body--search">
-                  <div class="wire__col">
-                    <span class="wire__label">检索轨迹 · 事件时间线</span>
-                    <span class="wire__step is-done">tool_end · 网络搜索助手</span>
-                    <span class="wire__step is-done">tool_end · 数据库查询助手</span>
-                    <span class="wire__step is-live">assistant_call · 子智能体</span>
-                    <div class="wire__chips">
-                      <span class="wire__chip">时间戳</span>
-                      <span class="wire__chip">输出摘要</span>
-                    </div>
-                  </div>
-                  <div class="wire__col">
-                    <span class="wire__label">产出文件</span>
-                    <div class="wire__lines"><i></i><i></i><i></i></div>
-                    <div class="wire__chips"><span class="wire__chip">报告 .md</span></div>
-                  </div>
-                </div>
-                <div class="wire__bar">
-                  <span>输入问题 · 回车提交</span>
-                  <span class="wire__grow"></span>
-                  <span>上传附件</span>
-                </div>
-              </div>
+              <img src="assets/img/demo-p04.webp" width="1280" height="800" loading="lazy" decoding="async"
+                   alt="深度搜索 Agent 的会话界面：左栏执行轨迹显示主智能体委派给「数据库查询助手」并调用 list_sql_tables 工具，右栏交付物是 7.7 KB 的《药品安全库存缺口核查报告.md》，下方是带分仓库表格的最终回答">
             </div>
           </div>
           <figcaption class="shot__cap">
             <div class="shot__head">
-              <span class="shot__name">P04 · 深度搜索 — 会话界面</span>
-              <span class="shot__badge shot__badge--mock">示意图</span>
+              <span class="shot__name">P04 · 深度搜索 — 多智能体检索</span>
+              <span class="shot__badge shot__badge--real">实拍</span>
             </div>
             <p class="shot__desc">
-              按 <code>App.vue</code> 的实际分区画，不按想象画：顶部是会话编号与连接状态，左边是轨迹时间线加输入框，
-              右边是这次会话的产出文件。三路子智能体、检索次数预算都在服务端，界面上没有计数条。
+              问「哪些药品的库存低于安全库存下限」，主智能体改写问题后委派给「数据库查询助手」，
+              执行层用只读账号查出 22 条记录里 <b>9 条</b>低于安全线、缺口合计 <b>1,860 单位</b>，
+              最后产出《药品安全库存缺口核查报告.md》（7.7 KB）。轨迹按 <code>thread_id</code> 实时推到左栏。
             </p>
           </figcaption>
         </figure>

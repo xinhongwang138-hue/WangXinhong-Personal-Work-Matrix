@@ -1136,13 +1136,6 @@ html[data-theme="light"] .pipe__node:not(.pipe__node--key) {
   text-overflow: ellipsis;
 }
 
-.shot__addr--mock {
-  border-style: dashed;
-  border-color: color-mix(in srgb, var(--warn) 42%, transparent);
-  color: var(--warn);
-  background: transparent;
-}
-
 .shot__canvas {
   position: relative;
   aspect-ratio: 16 / 10;
@@ -1158,168 +1151,6 @@ html[data-theme="light"] .pipe__node:not(.pipe__node--key) {
 }
 
 /* 示意图标记：放在地址条里，不压在画面上 */
-.shot__flag {
-  flex-shrink: 0;
-  padding: 2px 7px;
-  border: 1px dashed color-mix(in srgb, var(--warn) 52%, transparent);
-  border-radius: var(--r-xs);
-  color: var(--warn);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-/* --- 线框图元件：只表达"哪块是什么"，不假装是产品界面 --- */
-.wire {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 12px;
-  color: var(--ink3);
-  font-size: 11px;
-  line-height: 1.4;
-  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: 16px 16px;
-}
-
-.wire__bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-  border: 1px dashed color-mix(in srgb, var(--ink3) 42%, transparent);
-  border-radius: var(--r-sm);
-  background: color-mix(in srgb, var(--surface) 72%, transparent);
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.03em;
-}
-
-.wire__grow {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.wire__body {
-  flex: 1 1 auto;
-  display: grid;
-  gap: 8px;
-  min-height: 0;
-}
-
-.wire__body--contract {
-  grid-template-columns: 0.85fr 1.5fr 0.95fr;
-}
-
-/* 两栏比例照搬 P04 前端的 1.55fr / 1fr */
-.wire__body--search {
-  grid-template-columns: 1.55fr 1fr;
-}
-
-.wire__col {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-  padding: 8px;
-  overflow: hidden;
-  border: 1px dashed color-mix(in srgb, var(--ink3) 42%, transparent);
-  border-radius: var(--r-sm);
-  background: color-mix(in srgb, var(--surface) 58%, transparent);
-}
-
-/* 栏内小标签落到栏底，把整栏高度用满，避免下半截空着 */
-.wire__col > .wire__chips {
-  margin-top: auto;
-}
-
-.wire__label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  color: var(--ink2);
-}
-
-.wire__lines {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.wire__lines i {
-  display: block;
-  height: 5px;
-  border-radius: 3px;
-  background: var(--line-strong);
-  opacity: 0.42;
-}
-
-.wire__lines i:nth-child(1) { width: 92%; }
-.wire__lines i:nth-child(2) { width: 76%; }
-.wire__lines i:nth-child(3) { width: 88%; }
-.wire__lines i:nth-child(4) { width: 61%; }
-.wire__lines i:nth-child(5) { width: 84%; }
-.wire__lines i:nth-child(6) { width: 70%; }
-.wire__lines i:nth-child(7) { width: 90%; }
-.wire__lines i:nth-child(8) { width: 66%; }
-.wire__lines i:nth-child(9) { width: 82%; }
-.wire__lines i:nth-child(10) { width: 74%; }
-.wire__lines i:nth-child(11) { width: 87%; }
-.wire__lines i:nth-child(12) { width: 62%; }
-
-.wire__lines i.is-hit {
-  background: color-mix(in srgb, var(--brand) 58%, transparent);
-  opacity: 1;
-}
-
-.wire__step {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
-  color: var(--ink2);
-}
-
-.wire__step::before {
-  content: "";
-  flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  border: 1px solid var(--line-strong);
-}
-
-.wire__step.is-done::before {
-  border-color: var(--ok);
-  background: var(--ok);
-}
-
-.wire__step.is-live::before {
-  border-color: var(--brand);
-  background: var(--brand);
-}
-
-.wire__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.wire__chip {
-  padding: 2px 7px;
-  border: 1px dashed color-mix(in srgb, var(--ink3) 38%, transparent);
-  border-radius: var(--r-xs);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.03em;
-}
 
 /* --- 图注 --- */
 .shot__cap {
@@ -1359,12 +1190,6 @@ html[data-theme="light"] .pipe__node:not(.pipe__node--key) {
   border-color: color-mix(in srgb, var(--ok) 34%, transparent);
 }
 
-.shot__badge--mock {
-  color: var(--warn);
-  background: color-mix(in srgb, var(--warn) 12%, transparent);
-  border-color: color-mix(in srgb, var(--warn) 34%, transparent);
-}
-
 /* 浅色主题下 --ok 压在自身淡底上只有 4.3:1，压深一点才够 AA */
 html[data-theme="light"] .shot__badge--real {
   color: color-mix(in srgb, var(--ok) 80%, #000);
@@ -1391,19 +1216,6 @@ html[data-theme="light"] .shot__badge--real {
   .shots {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--sp-7);
-  }
-
-  .wire {
-    padding: 9px;
-    gap: 6px;
-  }
-
-  .wire__col {
-    padding: 6px;
-  }
-
-  .wire__label {
-    font-size: 9.5px;
   }
 }
 
