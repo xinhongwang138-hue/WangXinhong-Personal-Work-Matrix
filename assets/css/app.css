@@ -86,6 +86,20 @@ code,
   font-variant-ligatures: none;
 }
 
+/* 千分位逗号：等宽字体里逗号独占一个全角槽位（左右各留一段空白），
+   数字串看起来像多打了空格。实测把逗号换成比例字体后，
+   逗号两侧墨迹间隙从 15/20px 收到 4/10px，与 Arial 正文的排版节奏一致。
+
+   字体选择：Helvetica 与 Arial 的逗号 advance 同为 278/1000 em，
+   Liberation Sans 与 Arial 度量兼容 —— Windows / macOS / Linux 上
+   逗号宽度几乎一致，不会因为回退到某款字体又变回等宽观感。
+   数字本身仍是等宽字体，列对齐不受影响。 */
+.num-sep {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Liberation Sans", sans-serif;
+  font-weight: inherit;
+  letter-spacing: 0;
+}
+
 p code,
 li code,
 td code,

@@ -155,14 +155,17 @@
   var printing = false;
 
   function format(n) {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // 千分位逗号单独包一层：等宽字体里逗号独占一个全角槽位，看着像多打了空格
+    return n
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, '<span class="num-sep">,</span>');
   }
 
   function countUp(el) {
     var target = parseInt(el.getAttribute("data-count"), 10);
     if (isNaN(target)) return;
     if (reduceMotion || target < 30) {
-      el.textContent = format(target);
+      el.innerHTML = format(target);
       return;
     }
     var start = performance.now();
@@ -171,13 +174,13 @@
     function tick(now) {
       // 打印时直接落终值，避免把动画中途的数字印出去
       if (printing) {
-        el.textContent = format(target);
+        el.innerHTML = format(target);
         return;
       }
       var p = Math.min((now - start) / dur, 1);
       // easeOutCubic
       var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = format(Math.round(target * eased));
+      el.innerHTML = format(Math.round(target * eased));
       if (p < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
@@ -236,7 +239,7 @@
     printing = true;
     counters.forEach(function (el) {
       var t = parseInt(el.getAttribute("data-count"), 10);
-      if (!isNaN(t)) el.textContent = format(t);
+      if (!isNaN(t)) el.innerHTML = format(t);
     });
     reveals.forEach(function (el) {
       el.classList.add("is-in");
