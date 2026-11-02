@@ -790,6 +790,19 @@ html[data-theme="light"] .tile__bar .track {
   background: var(--brand-line);
 }
 
+.pcard__role {
+  margin-right: auto;
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--ink3);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
 .pcard__metric {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -1375,70 +1388,19 @@ html[data-theme="light"] .tile__bar .track {
   gap: 5px;
 }
 
-.timeline {
-  position: relative;
-  padding-left: 18px;
-  border-left: 1px solid var(--line);
-}
-
-.tl {
-  position: relative;
-  padding-bottom: 18px;
-}
-
-.tl:last-child {
-  padding-bottom: 0;
-}
-
-.tl::before {
-  content: "";
-  position: absolute;
-  left: -22px;
-  top: 6px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1.5px solid var(--line-strong);
-}
-
-.tl--now::before {
-  border-color: var(--brand);
-  background: var(--brand);
-  box-shadow: 0 0 0 3px var(--brand-soft);
-}
-
-.tl__date {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--ink3);
-  letter-spacing: 0.06em;
-}
-
-.tl__title {
-  margin-top: 2px;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.tl__desc {
-  font-size: 11.5px;
-  color: var(--ink2);
-}
-
-.contact {
-  margin-top: 26px;
-  padding: 18px;
+.principles {
+  padding: 20px 20px 18px;
   border: 1px solid var(--line);
   border-radius: var(--r);
   background: linear-gradient(
     160deg,
     color-mix(in srgb, var(--brand) 6%, var(--surface)),
-    var(--surface)
+    var(--surface) 55%
   );
+  scroll-margin-top: calc(var(--nav-h) + 24px);
 }
 
-.contact__label {
+.principles__label {
   font-family: var(--font-mono);
   font-size: 9.5px;
   letter-spacing: 0.12em;
@@ -1446,17 +1408,89 @@ html[data-theme="light"] .tile__bar .track {
   color: var(--brand);
 }
 
-.contact p {
-  margin-top: 8px;
-  font-size: 12px;
-  color: var(--ink2);
-  line-height: 1.7;
+.principles__list {
+  margin-top: 16px;
+  display: grid;
+  gap: 15px;
+  counter-reset: principle;
 }
 
-.contact .btn {
-  margin-top: 14px;
+.principles__list li {
+  position: relative;
+  padding-left: 27px;
+  counter-increment: principle;
+}
+
+.principles__list li::before {
+  content: "0" counter(principle);
+  position: absolute;
+  left: 0;
+  top: 1px;
   font-family: var(--font-mono);
-  font-size: 11.5px;
+  font-size: 10px;
+  color: var(--brand);
+  letter-spacing: 0.04em;
+}
+
+.principles__list b {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink1);
+}
+
+.principles__list span {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--ink2);
+  line-height: 1.65;
+}
+
+/* ---------- 12.5 联系 ---------- */
+.section--cta {
+  padding-top: clamp(40px, 5vw, 64px);
+  padding-bottom: clamp(40px, 5vw, 64px);
+}
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(24px, 4vw, 38px);
+  border: 1px solid color-mix(in srgb, var(--brand) 30%, var(--line));
+  border-radius: var(--r-xl);
+  background: radial-gradient(
+      120% 150% at 0% 0%,
+      var(--brand-soft),
+      transparent 62%
+    ),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.cta__main {
+  max-width: 46em;
+}
+
+.cta h2 {
+  margin: 10px 0 8px;
+  font-size: clamp(20px, 2.4vw, 27px);
+}
+
+.cta p {
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.75;
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 /* ---------- 13. 页脚 ---------- */
@@ -1607,6 +1641,24 @@ html[data-theme="light"] .tile__bar .track {
     grid-template-columns: 1fr;
     gap: 10px;
   }
+
+  .band__meta {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding-left: 0;
+    padding-top: 8px;
+    border-left: 0;
+    border-top: 1px dashed var(--line);
+  }
+
+  .cta {
+    align-items: flex-start;
+  }
+
+  .cta__actions {
+    width: 100%;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1658,6 +1710,15 @@ html[data-theme="light"] .tile__bar .track {
 
   .nav__actions .btn span {
     display: none;
+  }
+
+  .cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta__actions .btn {
+    justify-content: center;
   }
 
   .nav__actions .btn {

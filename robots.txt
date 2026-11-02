@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/sitemap.xml

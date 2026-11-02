@@ -102,37 +102,53 @@
     })
     .filter(Boolean);
 
-  if ("IntersectionObserver" in window && sections.length) {
-    var spy = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          links.forEach(function (a) {
-            a.classList.toggle(
-              "is-active",
-              a.getAttribute("href") === "#" + entry.target.id
-            );
-          });
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
-    );
-    sections.forEach(function (s) {
-      spy.observe(s);
-    });
+  if (sections.length) {
+    var spyTick = false;
 
-    // 首屏内不点亮任何导航项
+    function setActive(idx) {
+      links.forEach(function (a, i) {
+        var on = i === idx;
+        a.classList.toggle("is-active", on);
+        if (on) {
+          a.setAttribute("aria-current", "true");
+        } else {
+          a.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    function updateSpy() {
+      spyTick = false;
+      if (window.scrollY < 160) {
+        setActive(-1);
+        return;
+      }
+      // 以视口中上部为判定线：区块顶部越过这条线即视为当前区块
+      var line =
+        window.scrollY + Math.max(160, Math.round(window.innerHeight * 0.35));
+      var idx = -1;
+      sections.forEach(function (sec, i) {
+        if (sec.offsetTop <= line) idx = i;
+      });
+      // 页面到底时强制点亮最后一项（末段可能短于一屏）
+      var atBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4;
+      if (atBottom) idx = sections.length - 1;
+      setActive(idx);
+    }
+
     window.addEventListener(
       "scroll",
       function () {
-        if (window.scrollY < 160) {
-          links.forEach(function (a) {
-            a.classList.remove("is-active");
-          });
-        }
+        if (spyTick) return;
+        spyTick = true;
+        requestAnimationFrame(updateSpy);
       },
       { passive: true }
     );
+    window.addEventListener("resize", updateSpy);
+    updateSpy();
   }
 
   /* ---------- 数字滚动 ---------- */

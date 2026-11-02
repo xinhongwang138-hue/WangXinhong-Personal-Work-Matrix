@@ -20,7 +20,7 @@
   <g font-family="'PingFang SC','Microsoft YaHei','Segoe UI',sans-serif">
     <g font-family="'Cascadia Code',Consolas,monospace" font-size="16" fill="#8FA0B8" letter-spacing="2">
       <circle cx="90" cy="88" r="4" fill="#45D6A0"/>
-      <text x="108" y="94">AI 应用工程 · 全栈实现 · 2026</text>
+      <text x="108" y="94">AI 应用开发 · 全栈实现 · 独立完成</text>
     </g>
 
     <text x="88" y="200" font-size="72" font-weight="700" fill="#E9EEF7" letter-spacing="-2">王鑫鸿 · 个人作品矩阵</text>
@@ -60,7 +60,7 @@
 
     <g font-family="'Cascadia Code',Consolas,monospace" font-size="15" fill="#8FA0B8" letter-spacing="1">
       <text x="88" y="576">github.com/xinhongwang138-hue</text>
-      <text x="1112" y="576" text-anchor="end">PERSONAL WORK MATRIX / 2026</text>
+      <text x="1112" y="576" text-anchor="end">PERSONAL WORK MATRIX</text>
     </g>
   </g>
 </svg>

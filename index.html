@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#07090E" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#F5F7FB" media="(prefers-color-scheme: light)">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="王鑫鸿 · 个人作品矩阵">
 <meta property="og:title" content="王鑫鸿 · 个人作品矩阵">
 <meta property="og:description" content="四个系统，一条主线：把 AI 能力做成能跑的产品。">
 <meta property="og:url" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/">
@@ -16,7 +17,10 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="王鑫鸿 · 个人作品矩阵">
+<meta name="twitter:description" content="四个系统，一条主线：把 AI 能力做成能跑的产品。">
 <meta name="twitter:image" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/assets/img/og.png">
+<link rel="canonical" href="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/app.css">
@@ -64,6 +68,7 @@
       <a class="nav__link" href="#evidence">数字</a>
       <a class="nav__link" href="#boundary">边界</a>
       <a class="nav__link" href="#about">关于</a>
+      <a class="nav__link" href="#contact">联系</a>
     </nav>
 
     <div class="nav__actions">
@@ -98,15 +103,15 @@
   <section class="hero">
     <div class="wrap hero__grid">
       <div>
-        <span class="eyebrow"><i class="eyebrow__dot" aria-hidden="true"></i>AI 应用工程 · 全栈实现 · 2026</span>
+        <span class="eyebrow"><i class="eyebrow__dot" aria-hidden="true"></i>AI 应用开发 · 全栈实现 · 独立完成</span>
 
         <h1>四个系统，一条主线：<br><span class="accent">把 AI 能力做成能跑的产品</span></h1>
 
         <p class="hero__lead">
-          电商运营、合同审批、企业知识库、深度检索 —— 从业务建模、状态机设计，到 Agent 编排与验收测试，
-          每个仓库都能本地拉起、能跑、能复跑。<strong>不是脚手架，也不是只有截图的 demo。</strong>
+          <strong>我是王鑫鸿，做 AI 应用开发与全栈实现。</strong>电商运营、合同审批、企业知识库、深度检索——
+          从业务建模、状态机设计到 Agent 编排与验收测试，每个仓库都能本地拉起、能跑、能复跑。
         </p>
-        <p class="hero__note">这是一份可点开的工程索引：每个项目下面写清技术选型、硬约束和已知边界。</p>
+        <p class="hero__note">不是脚手架，也不是只有截图的 demo：技术选型、硬约束和已知边界都写在下面。</p>
 
         <div class="hero__ctas">
           <a class="btn btn--primary" href="#matrix">
@@ -191,7 +196,7 @@
           </p>
         </div>
         <div class="sec-head__aside">
-          4 repositories<br>public · 2026.10 — 2026.11
+          4 repositories<br>public · open source
         </div>
       </div>
 
@@ -200,13 +205,14 @@
         <article class="pcard reveal" id="p01">
           <div class="pcard__top">
             <span class="pcard__idx">P01</span>
+            <span class="pcard__role">独立完成</span>
             <span class="pcard__metric">43,068 LOC</span>
           </div>
           <h3>电商运营助手</h3>
           <div class="pcard__en">Ecommerce Operation Assistant</div>
           <p class="pcard__desc">
-            多平台店铺运营工作台：商品 / SKU / 库存、竞品监控、AI 创意与素材、投放实验、Agent 任务与审批，
-            后面挂一条异步任务队列。
+            店铺运营的动作散在表格和群里：库存、竞品、素材、投放各一套口径。这个工作台把它们收进一个系统，
+            Agent 任务也要走审批和追踪。
           </p>
 
           <div class="facts">
@@ -243,13 +249,14 @@
         <article class="pcard reveal" id="p02">
           <div class="pcard__top">
             <span class="pcard__idx">P02</span>
+            <span class="pcard__role">独立完成</span>
             <span class="pcard__metric">37,702 LOC</span>
           </div>
           <h3>合同审批系统</h3>
           <div class="pcard__en">Contract Approval</div>
           <p class="pcard__desc">
-            合同全生命周期：起草 → 可配置多级审批 → 用印 → 履行 → 到期预警 → 变更 → 归档，
-            配套组织架构、权限、模板、流程可视化配置、审计与效率报表。
+            合同在邮件和 IM 里流转，审批规则靠人记。这套系统把会签 / 或签 / 条件分支做成可配置的流程引擎，
+            并留下不可篡改的审计链。
           </p>
 
           <div class="facts">
@@ -286,13 +293,14 @@
         <article class="pcard reveal" id="p03">
           <div class="pcard__top">
             <span class="pcard__idx">P03</span>
+            <span class="pcard__role">独立完成</span>
             <span class="pcard__metric">10,785 LOC</span>
           </div>
           <h3>企业知识库</h3>
           <div class="pcard__en">Knowledge Base · RAG</div>
           <p class="pcard__desc">
-            文档进、答案出。PDF / Markdown 导入编排与混合检索问答两条 LangGraph 链路，
-            中间接向量库、对象存储与会话历史。
+            企业文档散在网盘里，问答要么搜不到、要么编答案。两条 LangGraph 链路：
+            一条把 PDF 洗干净入库，一条做混合检索并给出引用。
           </p>
 
           <div class="facts">
@@ -329,13 +337,14 @@
         <article class="pcard reveal" id="p04">
           <div class="pcard__top">
             <span class="pcard__idx">P04</span>
+            <span class="pcard__role">独立完成</span>
             <span class="pcard__metric">3,098 LOC</span>
           </div>
           <h3>深度搜索 Agent</h3>
           <div class="pcard__en">Deep Search Agent</div>
           <p class="pcard__desc">
-            主智能体 + 网络 / 数据库 / 知识库三路子智能体的深度检索框架：
-            检索下沉到子智能体，成文收口到主智能体。
+            一次深度检索要跨网页、数据库、知识库三个来源，模型很容易各说各话。
+            把检索下沉给三个子智能体，执行层加硬护栏。
           </p>
 
           <div class="facts">
@@ -536,7 +545,7 @@
           </p>
         </div>
         <div class="sec-head__aside">
-          measured 2026-11-01<br>static analysis
+          static analysis<br>reproducible
         </div>
       </div>
 
@@ -565,7 +574,7 @@
         <div class="ev reveal">
           <div class="ev__num"><span data-count="61">61</span><span class="ev__unit">次</span></div>
           <div class="ev__title">公开提交</div>
-          <div class="ev__desc">GitHub API 拉取各仓库默认分支提交数；四个仓库均建立于 2026 年 10 月</div>
+          <div class="ev__desc">GitHub API 拉取各仓库默认分支的提交数并汇总</div>
           <div class="ev__src">GET /repos/:owner/:repo/commits</div>
         </div>
       </div>
@@ -587,7 +596,7 @@
           <p>能跑的部分写清楚，跑不动的部分也写清楚。以下六条都是当前真实状态，不是「后续规划」。</p>
         </div>
         <div class="sec-head__aside">
-          updated 2026-11-01<br>6 items
+          6 items<br>current state
         </div>
       </div>
 
@@ -627,8 +636,8 @@
         <div class="bound">
           <div class="bound__n">05</div>
           <div>
-            <h3>提交历史偏短</h3>
-            <p>四个仓库集中在 2026 年 10 月推进，提交粒度偏粗，看不到完整演进过程。代码是结果，不是过程记录。</p>
+            <h3>没有 CI 流水线</h3>
+            <p>四个仓库都靠本地脚本跑测试，没有配置 GitHub Actions 之类的自动校验；改完代码是否回归，取决于有没有人手动跑。</p>
           </div>
         </div>
 
@@ -650,19 +659,17 @@
         <div class="sec-head__main">
           <div class="sec-kicker">06 / About</div>
           <h2>关于我</h2>
-          <p>四个系统之外，再交代三件事：<b>在做什么、怎么做事、怎么联系</b>。不写形容词，写状态。</p>
+          <p>四个系统之外，交代一下<b>我在做什么、怎么做事</b>。不写形容词，写状态。</p>
         </div>
       </div>
 
       <div class="about">
         <div class="reveal">
-          <p class="about__lead">
-            我是王鑫鸿，做 AI 应用开发与全栈实现。
-          </p>
+          <p class="about__lead">写代码之前，先把约束写清楚。</p>
           <p>
-            习惯先把业务约束写清楚再写代码：状态怎么流转、失败怎么显式、数字怎么复核。
-            上面四个系统覆盖电商运营、法务审批、知识管理、检索四类场景，共同点是都能在本地从零重建。
-            这个页面不放手机号、邮箱和简历文件 —— 需要联系，走 GitHub 就好。
+            状态怎么流转、失败怎么暴露、数字怎么复核 —— 这三件事定了，剩下的才是选框架。
+            四个系统覆盖电商运营、法务审批、知识管理、检索四类场景，共同点是都能在本地从零重建。
+            这个页面不放手机号、邮箱和简历文件，需要联系走 GitHub 即可。
           </p>
 
           <div class="taggroup">
@@ -695,42 +702,35 @@
         </div>
 
         <div class="reveal">
-          <div class="timeline">
-            <div class="tl">
-              <div class="tl__date">2026-10-10</div>
-              <div class="tl__title">企业知识库</div>
-              <div class="tl__desc">LangGraph 双链路：导入编排与混合检索</div>
-            </div>
-            <div class="tl">
-              <div class="tl__date">2026-10-18</div>
-              <div class="tl__title">电商运营助手</div>
-              <div class="tl__desc">FastAPI + Celery + Agent，六容器全栈</div>
-            </div>
-            <div class="tl">
-              <div class="tl__date">2026-10-29</div>
-              <div class="tl__title">深度搜索 Agent</div>
-              <div class="tl__desc">主从智能体 + 执行层护栏</div>
-            </div>
-            <div class="tl">
-              <div class="tl__date">2026-10-30</div>
-              <div class="tl__title">合同审批系统</div>
-              <div class="tl__desc">自研流程引擎，259 个用例</div>
-            </div>
-            <div class="tl tl--now">
-              <div class="tl__date">2026-11-01</div>
-              <div class="tl__title">个人作品矩阵</div>
-              <div class="tl__desc">把四个系统收进一页可复核的索引</div>
-            </div>
+          <div class="principles">
+            <div class="principles__label">How I work / 工作方式</div>
+            <ol class="principles__list">
+              <li><b>先约束，后实现</b><span>状态机、权限、金额精度先定，再谈框架。</span></li>
+              <li><b>失败要显式</b><span>缺依赖就报错，不返回编造的数据。</span></li>
+              <li><b>数字要能复核</b><span>每个指标带口径和复算脚本。</span></li>
+              <li><b>边界写进文档</b><span>跑不通的部分直接写，不用 mock 充数。</span></li>
+            </ol>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="contact">
-            <div class="contact__label">Contact</div>
-            <p>站内不放手机号、邮箱与简历文件。合作或交流，直接开 Issue 或看仓库即可。</p>
-            <a class="btn btn--sm" href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">
-              github.com/xinhongwang138-hue
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
+  <!-- ============ 联系 ============ -->
+  <section class="section section--cta" id="contact">
+    <div class="wrap">
+      <div class="cta reveal">
+        <div class="cta__main">
+          <div class="sec-kicker">Contact</div>
+          <h2>想细看某个仓库，或者聊聊实现？</h2>
+          <p>四个系统都能在本地跑起来，启动命令、迁移步骤和已知边界都写在各自的 README 里。</p>
+        </div>
+        <div class="cta__actions">
+          <a class="btn btn--primary" href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">
+            GitHub @xinhongwang138-hue
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn" href="#matrix">回到矩阵</a>
         </div>
       </div>
     </div>
@@ -742,7 +742,7 @@
   <div class="wrap foot__inner">
     <div class="foot__left">
       <b>王鑫鸿 · 个人作品矩阵</b> · 静态站点，无追踪脚本<br>
-      数据统计于 2026-11-01 · 与 GitHub 仓库同步维护
+      数据由仓库静态统计得出 · 与 GitHub 仓库同步维护
     </div>
     <div class="foot__links">
       <a href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">GitHub</a>
