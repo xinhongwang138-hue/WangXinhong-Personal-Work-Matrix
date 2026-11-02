@@ -51,8 +51,12 @@ python -m http.server 8910
 | P03 企业知识库 | `docker compose` 起导入与查询两个 API，先把文档 POST 到 `/upload` | `http://127.0.0.1:8011/chat.html` |
 | P04 深度搜索 | `docker compose -f docker-compose.demo.yml up -d`（自带种子库）→ `python main.py` → `ui/` 下 `npm run dev` | `http://127.0.0.1:5173/` |
 
-P02 与 P04 都需要一份 `.env`：数据库连接串、模型网关与 Key。截图前记得把 Next 的开发浮标
-（`nextjs-portal`）藏掉，否则左下角会多一个红色 Issue 徽标。
+P02 与 P04 都需要一份 `.env`：数据库连接串、模型网关与 Key。两处细节：
+
+- 截图前把 Next 的开发浮标（`nextjs-portal`）藏掉，否则左下角会多一个红色 Issue 徽标；
+- P02 的应用内置了 `.dark` 变量集（shadcn 默认）但没挂 ThemeProvider，默认浅色。
+  截图时给 `<html>` 加一个 `dark` 类即可切到深色，与另外三张的色调统一 —— 用的是应用自带的样式，
+  不是后期改图。
 
 ## 四、部署
 
