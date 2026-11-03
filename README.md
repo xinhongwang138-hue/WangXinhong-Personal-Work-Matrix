@@ -4,7 +4,9 @@
 
 **在线访问**：https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/
 
-这是一个静态单页站点，把这四个仓库收进一页可复核的索引 —— 技术选型、硬约束、测试用例、已知边界都写在对应卡片里。
+这是一个静态站点，把这四个仓库收进一组可复核的索引 —— 技术选型、硬约束、测试用例、已知边界都写在对应页面里。
+
+首页是总索引，每个项目另有一张**独立详情页**（`projects/p01.html` ~ `p04.html`），可以直接把某一个系统的链接单独发出去。
 
 ![首屏预览](docs/preview.png)
 
@@ -21,6 +23,21 @@
 页面分八节：作品矩阵 → 界面演示 → 能力矩阵 → 架构主线 → 可复核的数字 → 已知边界 → 关于 → 联系。
 
 「关于」节开头有一条**求职状态条**（当前状态 / 目标岗位 / 到岗时间 / 联系方式），与首屏 eyebrow 同源；「工作方式」四条原则下面挂了三个站内锚点，指向架构主线、可复核的数字与已知边界 —— 主张要能点进去核对，不空转。
+
+### 项目详情页
+
+每张项目卡底部有「项目详情」，跳到该系统的独立页面：
+
+| 页面 | 系统 | 内容 |
+| --- | --- | --- |
+| [projects/p01.html](projects/p01.html) | 电商运营助手 | 问数界面实拍 · 主链路 · 能力坐标 · 复现步骤 |
+| [projects/p02.html](projects/p02.html) | 合同审批系统 | 合同台账实拍 · 流程引擎 · 能力坐标 · 复现步骤 |
+| [projects/p03.html](projects/p03.html) | 企业知识库 | 问答实拍 · 双链路 · 能力坐标 · 复现步骤 |
+| [projects/p04.html](projects/p04.html) | 深度搜索 Agent | 检索轨迹实拍 · 主从委派 · 能力坐标 · 复现步骤 |
+
+每个详情页固定五节：**界面实拍 → 主链路 → 能力坐标 → 本地复现 → 已知边界**，底部能跳到上一个 / 下一个项目。
+
+**这四个页面是生成出来的**，不是手写的 —— 见 `docs/projects.json` 与 `docs/build_projects.py`。
 
 ## 二、四个项目
 
@@ -74,18 +91,26 @@ P02 与 P04 都需要一份 `.env`：数据库连接串、模型网关与 Key。
 
 ```
 .
-├─ index.html              单页站点（全部内容与文案）
+├─ index.html              首页：全部内容与文案（手写）
+├─ projects/               四个项目详情页（由 docs/build_projects.py 生成，勿手改）
+│  ├─ p01.html             电商运营助手
+│  ├─ p02.html             合同审批系统
+│  ├─ p03.html             企业知识库
+│  └─ p04.html             深度搜索 Agent
 ├─ assets/
 │  ├─ css/tokens.css       设计令牌：颜色 / 字体 / 间距 / 圆角 / 动效
 │  ├─ css/app.css          页面样式（含响应式与减动效适配）
+│  ├─ css/project.css      项目详情页专用样式
 │  ├─ js/app.js            主题切换 / 菜单 / 滚动监听 / 数字滚动
 │  └─ img/                 图标、OG 分享图、演示截图（demo-p01 ~ p04）
 ├─ docs/
 │  ├─ VERIFY.md            数字的统计口径与复算命令
 │  ├─ count_loc.py         行数 / 文件数 / 用例数的统计脚本
+│  ├─ projects.json        项目数据唯一真源（详情页由它渲染）
+│  ├─ build_projects.py    项目详情页生成器（含 --check 一致性校验）
 │  └─ preview.png          README 预览图
 ├─ robots.txt              允许抓取 + 指向 sitemap
-├─ sitemap.xml             单页 sitemap
+├─ sitemap.xml             收录首页与四个详情页
 ├─ .nojekyll
 └─ README.md
 ```
@@ -93,6 +118,14 @@ P02 与 P04 都需要一份 `.env`：数据库连接串、模型网关与 Key。
 ## 六、维护约定
 
 - **改数字要同步三处**：首屏统计条、05 节的四张卡、项目卡底部的小字。改完跑一遍 `docs/VERIFY.md` 的脚本。
+- **项目详情页是生成的，不要手改**：`projects/p0N.html` 由 `docs/build_projects.py` 从 `docs/projects.json` 渲染。改项目数据只改 JSON，然后重跑：
+
+  ```bash
+  python docs/build_projects.py           # 重新生成四个详情页
+  python docs/build_projects.py --check   # 只校验 index.html 的数字与 JSON 是否一致
+  ```
+
+  JSON 是唯一真源，生成器和 `--check` 一起保证详情页与首页不会漂移。
 - **不写没有证据的数字**：没有并发压测就不写 QPS / P95，没有覆盖率报告就不写覆盖率。
 - **联系方式**：邮箱 `18439129462@163.com`（mailto）与 GitHub `@xinhongwang138-hue` 都放在 07 节「联系方式」卡片和 08 节「联系」按钮里。不放手机号、简历文件。
 - **新增项目**：在 01 节加一张卡，在 03 节补一行能力，同时更新总行数与用例总数 —— 三处不一致就是 bug。

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P04 · 深度搜索 Agent | 王鑫鸿 · 个人作品矩阵</title>
+<meta name="description" content="深度搜索 Agent（Deep Search Agent）：一次深度检索要跨网页、数据库、知识库三个来源，模型很容易各说各话。把检索下沉给三个子智能体，执行层加硬护栏。 3,098 行源码、11 个 pytest 用例。附架构链路、工程约束、已知边界与本地复现步骤。">
+<meta name="author" content="王鑫鸿">
+<meta name="theme-color" content="#07090E">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="王鑫鸿 · 个人作品矩阵">
+<meta property="og:title" content="P04 · 深度搜索 Agent | 王鑫鸿 · 个人作品矩阵">
+<meta property="og:description" content="把检索下沉给三个子智能体，执行层加硬护栏，主智能体只负责汇总成文。">
+<meta property="og:url" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/projects/p04.html">
+<meta property="og:image" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/assets/img/demo-p04.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/projects/p04.html">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<link rel="stylesheet" href="../assets/css/project.css">
+<script>
+  // 首屏前定主题，避免闪白；同时标记 JS 可用，供入场动效做渐进增强
+  (function () {
+    document.documentElement.classList.add("js");
+    try {
+      var saved = localStorage.getItem("wxh-theme");
+      var mql = window.matchMedia("(prefers-color-scheme: light)");
+      var theme = saved || (mql.matches ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body class="pbody">
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="../index.html" aria-label="王鑫鸿个人作品矩阵 · 回到首页">
+      <span class="brand__mark" aria-hidden="true">WX</span>
+      <span class="brand__text">
+        <span class="brand__name">王鑫鸿 · 个人作品矩阵</span>
+        <span class="brand__sub">Personal Work Matrix</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="首页区块">
+      <a class="nav__link" href="../index.html#matrix">矩阵</a>
+      <a class="nav__link" href="../index.html#demo">演示</a>
+      <a class="nav__link" href="../index.html#capability">能力</a>
+      <a class="nav__link" href="../index.html#architecture">架构</a>
+      <a class="nav__link" href="../index.html#evidence">数字</a>
+      <a class="nav__link" href="../index.html#boundary">边界</a>
+      <a class="nav__link" href="../index.html#about">关于</a>
+      <a class="nav__link" href="../index.html#contact">联系</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="icon-btn nav__toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" stroke-linecap="round"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z" stroke-linejoin="round"/></svg>
+      </button>
+      <a class="btn btn--sm" href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="../index.html#matrix">01 · 作品矩阵</a>
+  <a href="../index.html#demo">02 · 界面演示</a>
+  <a href="../index.html#capability">03 · 能力矩阵</a>
+  <a href="../index.html#architecture">04 · 架构主线</a>
+  <a href="../index.html#evidence">05 · 可复核的数字</a>
+  <a href="../index.html#boundary">06 · 已知边界</a>
+  <a href="../index.html#about">07 · 关于</a>
+</div>
+
+<main id="main">
+
+  <!-- ============ 项目头 ============ -->
+  <section class="phero">
+    <div class="wrap">
+      <nav class="pcrumb reveal" aria-label="面包屑">
+        <a href="../index.html">作品矩阵</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">P04</span>
+      </nav>
+
+      <div class="phero__grid">
+        <div class="phero__main reveal">
+          <div class="phero__id">
+            <span class="phero__no">P04</span>
+            <span class="phero__en">Deep Search Agent</span>
+          </div>
+          <h1>深度搜索 Agent</h1>
+          <p class="phero__lead">把检索下沉给三个子智能体，执行层加硬护栏，主智能体只负责汇总成文。</p>
+          <div class="phero__tags">
+          <span class="tag">DeepAgents</span>
+          <span class="tag">LangGraph</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">WebSocket</span>
+          <span class="tag">Vue 3</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Tavily</span>
+          <span class="tag">RAGFlow</span>
+          </div>
+          <div class="phero__actions">
+            <a class="btn btn--primary" href="https://github.com/xinhongwang138-hue/deep-search-agent" target="_blank" rel="noopener">
+              查看仓库
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn" href="#pcap">看能力坐标</a>
+            <a class="btn" href="../index.html#matrix">回到矩阵</a>
+          </div>
+        </div>
+
+        <dl class="pmeta reveal">
+          <div class="pmeta__item">
+            <dt>源码行数</dt>
+            <dd><span class="pmeta__num">3,098</span><span class="pmeta__unit">LOC</span></dd>
+          </div>
+          <div class="pmeta__item">
+            <dt>源码文件</dt>
+            <dd><span class="pmeta__num">35</span><span class="pmeta__unit">files</span></dd>
+          </div>
+          <div class="pmeta__item">
+            <dt>测试用例</dt>
+            <dd><span class="pmeta__num">11</span><span class="pmeta__unit">cases</span></dd>
+          </div>
+          <div class="pmeta__item">
+            <dt>提交次数</dt>
+            <dd><span class="pmeta__num">3</span><span class="pmeta__unit">commits</span></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 界面实拍 ============ -->
+  <section class="section psection" id="pshot">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">01 / Screen</div>
+          <h2>这是跑起来的界面</h2>
+          <p>本地实例直接截屏，没有后期修图，地址条就是当时的地址。</p>
+        </div>
+        <div class="sec-head__aside">
+          实拍<br>
+          本机 127.0.0.1:5173
+        </div>
+      </div>
+
+      <figure class="shot shot--full reveal">
+        <div class="shot__screen">
+          <div class="shot__chrome" aria-hidden="true">
+            <span class="shot__dots"><i></i><i></i><i></i></span>
+            <span class="shot__addr">127.0.0.1:5173</span>
+          </div>
+          <div class="shot__canvas">
+            <img src="../assets/img/demo-p04.webp" width="1280" height="800" loading="lazy" decoding="async"
+                 alt="深度搜索 Agent 的会话界面：左栏执行轨迹显示主智能体委派给「数据库查询助手」并调用 list_sql_tables 工具，右栏交付物是 7.7 KB 的《药品安全库存缺口核查报告.md》，下方是带分仓库表格的最终回答">
+          </div>
+        </div>
+        <figcaption class="shot__cap">
+          <div class="shot__head">
+            <span class="shot__name">P04 · 深度搜索 — 多智能体检索</span>
+            <span class="shot__badge shot__badge--real">实拍</span>
+          </div>
+          <p class="shot__desc">问「哪些药品的库存低于安全库存下限」，主智能体改写问题后委派给「数据库查询助手」，执行层用只读账号查出 22 条记录里 9 条低于安全线、缺口合计 1,860 单位，最后产出《药品安全库存缺口核查报告.md》（7.7 KB）。轨迹按 thread_id 实时推到左栏。</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 架构链路 ============ -->
+  <section class="section psection" id="parch">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">02 / Architecture</div>
+          <h2>主链路</h2>
+          <p>链路图里的每一格都来自仓库代码或 README，不按印象画。</p>
+        </div>
+      </div>
+
+      <div class="pgrid">
+        <div class="reveal">
+          <div class="pblock">
+            <div class="pblock__label">数据怎么走</div>
+<figure class="pipe" aria-label="P04 主链路：DeepAgents 主智能体按 description 路由三路子智能体，调用 Tavily、只读 SQL、RAGFlow 等工具，最后由主智能体汇总成文">
+            <div class="pipe__line">
+              <div class="pipe__lane">
+                <span class="pipe__node"><b>主控</b><i>DeepAgents</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node pipe__node--key"><b>子智能体 ×3</b><i>按 description</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>工具层</b><i>Tavily·SQL·RAG</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>成文</b><i>主智能体汇总</i></span>
+              </div>
+            </div>
+          <div class="pipe__note">轨迹 WebSocket 按 thread_id 定向推送</div>
+        </figure>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="pblock">
+            <div class="pblock__label">工程约束与验收</div>
+            <div class="pfacts">
+          <div class="pfact">
+            <span class="pfact__label">工程约束</span>
+            <span class="pfact__text">SQL 只读、路径穿越、检索次数预算全部在<b>执行层硬校验</b>，不靠提示词自觉；异常收敛成「报错但不抛栈」</span>
+          </div>
+          <div class="pfact">
+            <span class="pfact__label">验收</span>
+            <span class="pfact__text"><b>11 个 pytest 用例</b> 专打护栏：危险 SQL 拒绝、工作区越界拒绝、坏 PDF 不炸服务；FastAPI + WebSocket 按 thread_id 定向推送轨迹</span>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 能力坐标 ============ -->
+  <section class="section psection" id="pcap">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">03 / Capability</div>
+          <h2>这个系统在哪几行是主力</h2>
+          <p>与首页 03 节是同一张表，这里只截出本项目这一列。<b>没做过的格子不填</b>。</p>
+        </div>
+        <div class="sec-head__aside">
+          rows 7<br>
+          口径与首页一致
+        </div>
+      </div>
+
+      <div class="pcap reveal">
+            <div class="pcap__row" data-level="core">
+              <span class="pcap__dot" aria-hidden="true">●</span>
+              <span class="pcap__dim">Agent / 状态机</span>
+              <span class="pcap__note">主从委派</span>
+              <span class="pcap__lv">主力实现</span>
+            </div>
+            <div class="pcap__row" data-level="core">
+              <span class="pcap__dot" aria-hidden="true">●</span>
+              <span class="pcap__dim">检索与 RAG</span>
+              <span class="pcap__note">RAGFlow</span>
+              <span class="pcap__lv">主力实现</span>
+            </div>
+            <div class="pcap__row" data-level="part">
+              <span class="pcap__dot" aria-hidden="true">◐</span>
+              <span class="pcap__dim">数据建模与事务</span>
+              <span class="pcap__note">只读 SQL</span>
+              <span class="pcap__lv">有实现，非重点</span>
+            </div>
+            <div class="pcap__row" data-level="core">
+              <span class="pcap__dot" aria-hidden="true">●</span>
+              <span class="pcap__dim">前端工程</span>
+              <span class="pcap__note">Vue 3</span>
+              <span class="pcap__lv">主力实现</span>
+            </div>
+            <div class="pcap__row" data-level="core">
+              <span class="pcap__dot" aria-hidden="true">●</span>
+              <span class="pcap__dim">异步与实时</span>
+              <span class="pcap__note">WS 推送</span>
+              <span class="pcap__lv">主力实现</span>
+            </div>
+            <div class="pcap__row" data-level="part">
+              <span class="pcap__dot" aria-hidden="true">◐</span>
+              <span class="pcap__dim">自动化测试</span>
+              <span class="pcap__note">11 用例</span>
+              <span class="pcap__lv">有实现，非重点</span>
+            </div>
+            <div class="pcap__row" data-level="light">
+              <span class="pcap__dot" aria-hidden="true">○</span>
+              <span class="pcap__dim">容器化交付</span>
+              <span class="pcap__note">demo compose</span>
+              <span class="pcap__lv">仅基础形态</span>
+            </div>
+      </div>
+      <p class="pcap__legend">
+        <span><i style="color:var(--brand)">●</i>主力实现</span>
+        <span><i style="color:color-mix(in srgb, var(--brand) 62%, var(--ink3))">◐</i>有实现，非重点</span>
+        <span><i style="color:var(--ink3)">○</i>仅基础形态</span>
+        <span><i style="color:var(--line-strong)">–</i>未涉及</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 本地复现 ============ -->
+  <section class="section psection" id="prepro">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">04 / Reproduce</div>
+          <h2>在自己机器上跑一遍</h2>
+          <p>下面是从零拉起这个系统要的东西。缺依赖时链路会明确失败，不返回编造的结果。</p>
+        </div>
+      </div>
+
+      <div class="prepro reveal">
+        <div class="prepro__block">
+          <div class="pblock__label">启动命令</div>
+          <pre class="prepro__code"><code>docker compose -f docker-compose.demo.yml up -d &amp;&amp; python main.py</code></pre>
+        </div>
+        <div class="prepro__block">
+          <div class="pblock__label">访问地址</div>
+          <p class="prepro__url"><a href="http://127.0.0.1:5173/">http://127.0.0.1:5173/</a></p>
+        </div>
+        <div class="prepro__block prepro__block--wide">
+          <div class="pblock__label">还需要准备</div>
+          <ul class="prepro__needs">
+            <li>LLM 网关与 Key</li>
+            <li>Tavily API Key</li>
+            <li>RAGFlow</li>
+            <li>只读 MySQL</li>
+          </ul>
+          <p class="prepro__note">demo compose 自带种子库；再在 ui/ 下 npm run dev 起前端（Vite 代理指到后端端口）。模型网关、TAVILY_API_KEY、RAGFLOW_BASE_URL 与只读数据库连接串都要在 .env 里填。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 已知边界 ============ -->
+  <section class="section psection" id="pbound">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">05 / Boundary</div>
+          <h2>这个系统跑不到哪</h2>
+          <p>能跑的部分写清楚，跑不动的部分也写清楚。以下是当前真实状态，不是「后续规划」。</p>
+        </div>
+      </div>
+
+      <div class="pbounds reveal">
+        <div class="bound">
+          <div class="bound__n">01</div>
+          <div>
+            <h3>没有在线 demo</h3>
+            <p>检索链路依赖本地的只读 MySQL 与外部的 RAGFlow，仓库给的是可复现的启动路径，不是一个点开就能用的链接。这个页面本身是静态站，不需要后端。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">02</div>
+          <div>
+            <h3>外部服务需自备</h3>
+            <p>大模型 Key、Tavily API Key 与 RAGFlow 实例都不随仓库分发。缺任一项时链路会明确失败，而不是返回编造的结果。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">03</div>
+          <div>
+            <h3>提交数最少</h3>
+            <p>四个项目里这个仓库的提交数最低（3 次），代码量也最小（3,098 行）。它是护栏与轨迹机制的验证样本，不是完整的生产系统。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">04</div>
+          <div>
+            <h3>没有性能数字</h3>
+            <p>未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">05</div>
+          <div>
+            <h3>没有 CI 流水线</h3>
+            <p>仓库靠本地脚本跑测试，没有配置 GitHub Actions 之类的自动校验；改完代码是否回归，取决于有没有人手动跑。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">06</div>
+          <div>
+            <h3>界面以功能为先</h3>
+            <p>没有独立设计系统，也没有做无障碍审计；这个页面做了键盘可达与减动效适配，但没做完整 WCAG 验收。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 上下项目 ============ -->
+  <section class="section section--flush pnav-sec">
+    <div class="wrap">
+      <nav class="pnav reveal" aria-label="项目导航">
+<a class="pnav__link" href="../projects/p03.html"><span class="pnav__dir">← 上一个</span><span class="pnav__name">P03 · 企业知识库</span></a>
+<span class="pnav__link pnav__link--empty"></span>
+      </nav>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 页脚 ============ -->
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__left">
+      <b>王鑫鸿 · 个人作品矩阵</b> · 静态站点，无追踪脚本<br>
+      数据由仓库静态统计得出 · 与 GitHub 仓库同步维护
+    </div>
+    <div class="foot__links">
+      <a href="../index.html">回到首页</a>
+      <a href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:18439129462@163.com">18439129462@163.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js" defer></script>
+</body>
+</html>

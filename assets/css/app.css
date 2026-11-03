@@ -1033,13 +1033,41 @@ html[data-theme="light"] .pipe__node:not(.pipe__node--key) {
   font-weight: 600;
 }
 
+.pcard__links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
 .repo-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-size: 12px;
-  color: var(--brand);
+  color: var(--ink3);
   white-space: nowrap;
+  transition: color var(--dur) var(--ease);
+}
+
+.repo-link:hover {
+  color: var(--brand-hover);
+}
+
+/* 「项目详情」是站内主路径，比外链更强调一档 */
+.repo-link--primary {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.repo-link--primary svg {
+  width: 13px;
+  height: 13px;
+  transition: transform var(--dur) var(--ease);
+}
+
+.repo-link--primary:hover svg {
+  transform: translateX(2px);
 }
 
 .repo-link svg {

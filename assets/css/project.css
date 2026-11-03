@@ -1,0 +1,537 @@
+/* ═══════════════════════════════════════════════════════════
+   项目详情页专用样式
+   仅被 projects/p0N.html 引用；基础令牌与通用组件在 tokens.css / app.css
+   ═══════════════════════════════════════════════════════════ */
+
+/* ---------- 1. 项目头 ---------- */
+.phero {
+  position: relative;
+  padding: clamp(28px, 4vw, 44px) 0 clamp(32px, 4.4vw, 52px);
+  overflow: hidden;
+}
+
+.phero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 20% 0%, #000 25%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 20% 0%, #000 25%, transparent 75%);
+  pointer-events: none;
+}
+
+.phero > .wrap {
+  position: relative;
+}
+
+/* 面包屑 */
+.pcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(18px, 2.6vw, 28px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink3);
+}
+
+.pcrumb a {
+  color: var(--ink3);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.pcrumb a:hover {
+  color: var(--brand);
+  border-bottom-color: var(--brand-line);
+}
+
+.pcrumb [aria-current="page"] {
+  color: var(--brand);
+}
+
+.phero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+
+.phero__id {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.phero__no {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--brand);
+}
+
+.phero__en {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink3);
+}
+
+.phero h1 {
+  margin: 8px 0 0;
+  font-size: var(--fs-2xl);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--ink1);
+}
+
+.phero__lead {
+  margin: 12px 0 0;
+  max-width: 56ch;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--ink2);
+}
+
+.phero__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 18px;
+}
+
+.phero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+/* 指标卡 */
+.pmeta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.pmeta__item {
+  padding: 13px 15px 14px;
+  background: var(--surface);
+}
+
+.pmeta__item dt {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink3);
+}
+
+.pmeta__item dd {
+  margin: 6px 0 0;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.pmeta__num {
+  font-family: var(--font-mono);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--ink1);
+  font-variant-numeric: tabular-nums;
+}
+
+.pmeta__unit {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--ink3);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- 2. 分节 ---------- */
+.psection {
+  padding: clamp(40px, 5.4vw, 68px) 0;
+}
+
+/* ---------- 3. 整幅截图 ---------- */
+.shot--full .shot__canvas {
+  aspect-ratio: 16 / 10;
+}
+
+.shot--full .shot__canvas img {
+  object-fit: cover;
+}
+
+/* ---------- 4. 两栏内容块 ---------- */
+.pgrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+
+.pblock {
+  padding: 20px 20px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.pblock__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 14px;
+}
+
+/* 工程约束 / 验收 */
+.pfacts {
+  display: grid;
+  gap: 14px;
+}
+
+.pfact {
+  display: grid;
+  gap: 4px;
+}
+
+.pfact__label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink3);
+}
+
+.pfact__text {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink2);
+}
+
+.pfact__text b {
+  color: var(--ink1);
+  font-weight: 600;
+}
+
+.pfact__text code {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 1px 5px;
+  border-radius: var(--r-xs);
+  background: var(--surface-3);
+  color: var(--ink1);
+}
+
+/* ---------- 5. 能力坐标 ---------- */
+.pcap {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.pcap__row {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) minmax(0, 1.1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.pcap__row:last-child {
+  border-bottom: 0;
+}
+
+.pcap__row:hover {
+  background: color-mix(in srgb, var(--brand) 4%, transparent);
+}
+
+.pcap__dot {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--ink3);
+}
+
+.pcap__row[data-level="core"] .pcap__dot {
+  color: var(--brand);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--brand) 60%, transparent);
+}
+
+.pcap__row[data-level="part"] .pcap__dot {
+  color: color-mix(in srgb, var(--brand) 62%, var(--ink3));
+}
+
+.pcap__row[data-level="light"] .pcap__dot {
+  color: var(--ink3);
+}
+
+.pcap__dim {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink1);
+}
+
+.pcap__note {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink3);
+  letter-spacing: 0.01em;
+}
+
+.pcap__row[data-level="core"] .pcap__note {
+  color: var(--ink2);
+}
+
+.pcap__lv {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink3);
+  white-space: nowrap;
+}
+
+.pcap__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: var(--ink3);
+}
+
+.pcap__legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.pcap__legend i {
+  font-style: normal;
+}
+
+/* ---------- 6. 本地复现 ---------- */
+.prepro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 28px);
+  align-items: start;
+}
+
+.prepro__block {
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+}
+
+.prepro__block--wide {
+  grid-column: 1 / -1;
+}
+
+.prepro__code {
+  margin: 0;
+  padding: 13px 15px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--ink1);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.prepro__url {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.prepro__url a {
+  color: var(--brand);
+  text-decoration: none;
+  border-bottom: 1px solid var(--brand-line);
+}
+
+.prepro__url a:hover {
+  color: var(--brand-hover);
+  border-bottom-color: var(--brand-hover);
+}
+
+.prepro__needs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prepro__needs li {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  background: var(--surface-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink2);
+  white-space: nowrap;
+}
+
+.prepro__note {
+  margin: 12px 0 0;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--ink2);
+}
+
+/* ---------- 7. 上下项目导航 ---------- */
+.pnav-sec {
+  padding: clamp(28px, 3.6vw, 44px) 0;
+}
+
+.pnav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pnav__link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  text-decoration: none;
+  transition: border-color var(--dur-mid) var(--ease),
+    transform var(--dur-mid) var(--ease);
+}
+
+.pnav__link:hover {
+  border-color: var(--brand-line);
+  transform: translateY(-2px);
+}
+
+.pnav__link--next {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.pnav__link--empty {
+  border-color: transparent;
+  background: transparent;
+  pointer-events: none;
+}
+
+.pnav__dir {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink3);
+}
+
+.pnav__name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink1);
+}
+
+/* ---------- 8. 响应式 ---------- */
+@media (max-width: 1020px) {
+  .phero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pmeta {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .prepro {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .pmeta {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pcap__row {
+    grid-template-columns: 20px minmax(0, 1fr) auto;
+    row-gap: 2px;
+  }
+
+  .pcap__note {
+    grid-column: 2 / -1;
+  }
+
+  .pcap__lv {
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .pnav {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .phero__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+/* ---------- 9. 打印 ---------- */
+@media print {
+  .pnav,
+  .phero__actions {
+    display: none;
+  }
+
+  .phero,
+  .psection {
+    padding: 16px 0;
+  }
+
+  .pblock,
+  .pcap,
+  .prepro__block,
+  .pmeta {
+    break-inside: avoid;
+  }
+}

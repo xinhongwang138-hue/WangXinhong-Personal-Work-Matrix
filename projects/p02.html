@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P02 · 合同审批系统 | 王鑫鸿 · 个人作品矩阵</title>
+<meta name="description" content="合同审批系统（Contract Approval）：合同在邮件和 IM 里流转，审批规则靠人记。这套系统把会签 / 或签 / 条件分支做成可配置的流程引擎，并留下不可篡改的审计链。 37,702 行源码、259 个用例。附架构链路、工程约束、已知边界与本地复现步骤。">
+<meta name="author" content="王鑫鸿">
+<meta name="theme-color" content="#07090E">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="王鑫鸿 · 个人作品矩阵">
+<meta property="og:title" content="P02 · 合同审批系统 | 王鑫鸿 · 个人作品矩阵">
+<meta property="og:description" content="把会签、或签、条件分支做成可配置的流程引擎，并留下不可篡改的审计链。">
+<meta property="og:url" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/projects/p02.html">
+<meta property="og:image" content="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/assets/img/demo-p02.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/projects/p02.html">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/app.css">
+<link rel="stylesheet" href="../assets/css/project.css">
+<script>
+  // 首屏前定主题，避免闪白；同时标记 JS 可用，供入场动效做渐进增强
+  (function () {
+    document.documentElement.classList.add("js");
+    try {
+      var saved = localStorage.getItem("wxh-theme");
+      var mql = window.matchMedia("(prefers-color-scheme: light)");
+      var theme = saved || (mql.matches ? "light" : "dark");
+      document.documentElement.setAttribute("data-theme", theme);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body class="pbody">
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="../index.html" aria-label="王鑫鸿个人作品矩阵 · 回到首页">
+      <span class="brand__mark" aria-hidden="true">WX</span>
+      <span class="brand__text">
+        <span class="brand__name">王鑫鸿 · 个人作品矩阵</span>
+        <span class="brand__sub">Personal Work Matrix</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="首页区块">
+      <a class="nav__link" href="../index.html#matrix">矩阵</a>
+      <a class="nav__link" href="../index.html#demo">演示</a>
+      <a class="nav__link" href="../index.html#capability">能力</a>
+      <a class="nav__link" href="../index.html#architecture">架构</a>
+      <a class="nav__link" href="../index.html#evidence">数字</a>
+      <a class="nav__link" href="../index.html#boundary">边界</a>
+      <a class="nav__link" href="../index.html#about">关于</a>
+      <a class="nav__link" href="../index.html#contact">联系</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="icon-btn nav__toggle" id="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="theme-toggle" aria-label="切换明暗主题" title="切换明暗主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" stroke-linecap="round"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z" stroke-linejoin="round"/></svg>
+      </button>
+      <a class="btn btn--sm" href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a href="../index.html#matrix">01 · 作品矩阵</a>
+  <a href="../index.html#demo">02 · 界面演示</a>
+  <a href="../index.html#capability">03 · 能力矩阵</a>
+  <a href="../index.html#architecture">04 · 架构主线</a>
+  <a href="../index.html#evidence">05 · 可复核的数字</a>
+  <a href="../index.html#boundary">06 · 已知边界</a>
+  <a href="../index.html#about">07 · 关于</a>
+</div>
+
+<main id="main">
+
+  <!-- ============ 项目头 ============ -->
+  <section class="phero">
+    <div class="wrap">
+      <nav class="pcrumb reveal" aria-label="面包屑">
+        <a href="../index.html">作品矩阵</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">P02</span>
+      </nav>
+
+      <div class="phero__grid">
+        <div class="phero__main reveal">
+          <div class="phero__id">
+            <span class="phero__no">P02</span>
+            <span class="phero__en">Contract Approval</span>
+          </div>
+          <h1>合同审批系统</h1>
+          <p class="phero__lead">把会签、或签、条件分支做成可配置的流程引擎，并留下不可篡改的审计链。</p>
+          <div class="phero__tags">
+          <span class="tag">Next.js 16.4</span>
+          <span class="tag">React 19</span>
+          <span class="tag">TypeScript 5.9</span>
+          <span class="tag">Prisma 7</span>
+          <span class="tag">PostgreSQL 16</span>
+          <span class="tag">Better Auth</span>
+          <span class="tag">Tailwind v4</span>
+          <span class="tag">Vitest</span>
+          <span class="tag">Playwright</span>
+          </div>
+          <div class="phero__actions">
+            <a class="btn btn--primary" href="https://github.com/xinhongwang138-hue/contract-approval" target="_blank" rel="noopener">
+              查看仓库
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn" href="#pcap">看能力坐标</a>
+            <a class="btn" href="../index.html#matrix">回到矩阵</a>
+          </div>
+        </div>
+
+        <dl class="pmeta reveal">
+          <div class="pmeta__item">
+            <dt>源码行数</dt>
+            <dd><span class="pmeta__num">37,702</span><span class="pmeta__unit">LOC</span></dd>
+          </div>
+          <div class="pmeta__item">
+            <dt>源码文件</dt>
+            <dd><span class="pmeta__num">201</span><span class="pmeta__unit">files</span></dd>
+          </div>
+          <div class="pmeta__item">
+            <dt>测试用例</dt>
+            <dd><span class="pmeta__num">259</span><span class="pmeta__unit">cases</span></dd>
+          </div>
+          <div class="pmeta__item">
+            <dt>提交次数</dt>
+            <dd><span class="pmeta__num">27</span><span class="pmeta__unit">commits</span></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 界面实拍 ============ -->
+  <section class="section psection" id="pshot">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">01 / Screen</div>
+          <h2>这是跑起来的界面</h2>
+          <p>本地实例直接截屏，没有后期修图，地址条就是当时的地址。</p>
+        </div>
+        <div class="sec-head__aside">
+          实拍<br>
+          本机 127.0.0.1:3001
+        </div>
+      </div>
+
+      <figure class="shot shot--full reveal">
+        <div class="shot__screen">
+          <div class="shot__chrome" aria-hidden="true">
+            <span class="shot__dots"><i></i><i></i><i></i></span>
+            <span class="shot__addr">127.0.0.1:3001/contracts</span>
+          </div>
+          <div class="shot__canvas">
+            <img src="../assets/img/demo-p02.webp" width="1280" height="800" loading="lazy" decoding="async"
+                 alt="合同审批系统的合同管理页：顶部是搜索框与状态筛选，表格列出六份合同，状态列依次显示已归档、已驳回、履行中、待用印、审批中、草稿">
+          </div>
+        </div>
+        <figcaption class="shot__cap">
+          <div class="shot__head">
+            <span class="shot__name">P02 · 合同审批 — 合同台账</span>
+            <span class="shot__badge shot__badge--real">实拍</span>
+          </div>
+          <p class="shot__desc">六份种子合同刚好占满状态机里的六种状态：草稿、审批中、待用印、履行中、已驳回、已归档。台账按角色权限与数据范围过滤，金额、相对方、到期日都是库里的真实字段，不是前端写死的样例。</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 架构链路 ============ -->
+  <section class="section psection" id="parch">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">02 / Architecture</div>
+          <h2>主链路</h2>
+          <p>链路图里的每一格都来自仓库代码或 README，不按印象画。</p>
+        </div>
+      </div>
+
+      <div class="pgrid">
+        <div class="reveal">
+          <div class="pblock">
+            <div class="pblock__label">数据怎么走</div>
+<figure class="pipe" aria-label="P02 主链路：App Router 页面通过 Server Actions 提交，进入自研流程引擎处理会签、或签、条件分支与加签转签，经 Prisma 落 PostgreSQL">
+            <div class="pipe__line">
+              <div class="pipe__lane">
+                <span class="pipe__node"><b>页面</b><i>App Router</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>动作</b><i>Server Actions</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node pipe__node--key"><b>流程引擎</b><i>会签·或签·条件·加签</i></span>
+                <span class="pipe__arrow" aria-hidden="true"></span>
+                <span class="pipe__node"><b>ORM</b><i>Prisma</i></span>
+              </div>
+            </div>
+          <div class="pipe__note">存储 PostgreSQL 16 · 定义快照不可变 · 审计链只追加</div>
+        </figure>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="pblock">
+            <div class="pblock__label">工程约束与验收</div>
+            <div class="pfacts">
+          <div class="pfact">
+            <span class="pfact__label">工程约束</span>
+            <span class="pfact__text">TS strict + <code>noUncheckedIndexedAccess</code>、禁 <code>any</code>；金额一律 <b>Decimal(18,2)</b> 禁浮点；时间存 UTC、展示 Asia/Shanghai；定义快照不可变</span>
+          </div>
+          <div class="pfact">
+            <span class="pfact__label">验收</span>
+            <span class="pfact__text"><b>259 个用例</b>：Vitest 单测 + 集成（独立 contract_test 库）+ Playwright 全链路；覆盖会签比例阈值、越权 403、归档后只读</span>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 能力坐标 ============ -->
+  <section class="section psection" id="pcap">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">03 / Capability</div>
+          <h2>这个系统在哪几行是主力</h2>
+          <p>与首页 03 节是同一张表，这里只截出本项目这一列。<b>没做过的格子不填</b>。</p>
+        </div>
+        <div class="sec-head__aside">
+          rows 7<br>
+          口径与首页一致
+        </div>
+      </div>
+
+      <div class="pcap reveal">
+            <div class="pcap__row" data-level="part">
+              <span class="pcap__dot" aria-hidden="true">◐</span>
+              <span class="pcap__dim">Agent / 状态机</span>
+              <span class="pcap__note">流程引擎</span>
+              <span class="pcap__lv">有实现，非重点</span>
+            </div>
+            <div class="pcap__row" data-level="none">
+              <span class="pcap__dot" aria-hidden="true">–</span>
+              <span class="pcap__dim">检索与 RAG</span>
+              <span class="pcap__note">未涉及</span>
+              <span class="pcap__lv">未涉及</span>
+            </div>
+            <div class="pcap__row" data-level="core">
+              <span class="pcap__dot" aria-hidden="true">●</span>
+              <span class="pcap__dim">数据建模与事务</span>
+              <span class="pcap__note">Prisma / PG</span>
+              <span class="pcap__lv">主力实现</span>
+            </div>
+            <div class="pcap__row" data-level="core">
+              <span class="pcap__dot" aria-hidden="true">●</span>
+              <span class="pcap__dim">前端工程</span>
+              <span class="pcap__note">React 19</span>
+              <span class="pcap__lv">主力实现</span>
+            </div>
+            <div class="pcap__row" data-level="part">
+              <span class="pcap__dot" aria-hidden="true">◐</span>
+              <span class="pcap__dim">异步与实时</span>
+              <span class="pcap__note">轮询 worker</span>
+              <span class="pcap__lv">有实现，非重点</span>
+            </div>
+            <div class="pcap__row" data-level="core">
+              <span class="pcap__dot" aria-hidden="true">●</span>
+              <span class="pcap__dim">自动化测试</span>
+              <span class="pcap__note">259 用例</span>
+              <span class="pcap__lv">主力实现</span>
+            </div>
+            <div class="pcap__row" data-level="part">
+              <span class="pcap__dot" aria-hidden="true">◐</span>
+              <span class="pcap__dim">容器化交付</span>
+              <span class="pcap__note">PG 单库</span>
+              <span class="pcap__lv">有实现，非重点</span>
+            </div>
+      </div>
+      <p class="pcap__legend">
+        <span><i style="color:var(--brand)">●</i>主力实现</span>
+        <span><i style="color:color-mix(in srgb, var(--brand) 62%, var(--ink3))">◐</i>有实现，非重点</span>
+        <span><i style="color:var(--ink3)">○</i>仅基础形态</span>
+        <span><i style="color:var(--line-strong)">–</i>未涉及</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 本地复现 ============ -->
+  <section class="section psection" id="prepro">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">04 / Reproduce</div>
+          <h2>在自己机器上跑一遍</h2>
+          <p>下面是从零拉起这个系统要的东西。缺依赖时链路会明确失败，不返回编造的结果。</p>
+        </div>
+      </div>
+
+      <div class="prepro reveal">
+        <div class="prepro__block">
+          <div class="pblock__label">启动命令</div>
+          <pre class="prepro__code"><code>npm ci &amp;&amp; npx prisma generate &amp;&amp; next dev -p 3001</code></pre>
+        </div>
+        <div class="prepro__block">
+          <div class="pblock__label">访问地址</div>
+          <p class="prepro__url"><a href="http://127.0.0.1:3001/contracts">http://127.0.0.1:3001/contracts</a></p>
+        </div>
+        <div class="prepro__block prepro__block--wide">
+          <div class="pblock__label">还需要准备</div>
+          <ul class="prepro__needs">
+            <li>PostgreSQL 16</li>
+          </ul>
+          <p class="prepro__note">需要先起 PostgreSQL（端口 5432），并把 .env.example 里的 DATABASE_URL 改成实际库。默认账号 admin@example.com / Admin@12345 来自 prisma/seed.ts，仅本地开发用。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 已知边界 ============ -->
+  <section class="section psection" id="pbound">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-head__main">
+          <div class="sec-kicker">05 / Boundary</div>
+          <h2>这个系统跑不到哪</h2>
+          <p>能跑的部分写清楚，跑不动的部分也写清楚。以下是当前真实状态，不是「后续规划」。</p>
+        </div>
+      </div>
+
+      <div class="pbounds reveal">
+        <div class="bound">
+          <div class="bound__n">01</div>
+          <div>
+            <h3>没有在线 demo</h3>
+            <p>流程引擎跑在本地的 PostgreSQL 上，仓库给的是可复现的启动路径，不是一个点开就能用的链接。这个页面本身是静态站，不需要后端。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">02</div>
+          <div>
+            <h3>外部依赖只有 PostgreSQL</h3>
+            <p>不调用大模型、也不连外部服务，审批规则是自研流程引擎按配置执行的，所以缺依赖时只会是数据库连不上，不会返回编造的结果。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">03</div>
+          <div>
+            <h3>没有性能数字</h3>
+            <p>未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">04</div>
+          <div>
+            <h3>没有 CI 流水线</h3>
+            <p>仓库靠本地脚本跑测试，没有配置 GitHub Actions 之类的自动校验；改完代码是否回归，取决于有没有人手动跑。</p>
+          </div>
+        </div>
+        <div class="bound">
+          <div class="bound__n">05</div>
+          <div>
+            <h3>界面以功能为先</h3>
+            <p>没有独立设计系统，也没有做无障碍审计；这个页面做了键盘可达与减动效适配，但没做完整 WCAG 验收。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 上下项目 ============ -->
+  <section class="section section--flush pnav-sec">
+    <div class="wrap">
+      <nav class="pnav reveal" aria-label="项目导航">
+<a class="pnav__link" href="../projects/p01.html"><span class="pnav__dir">← 上一个</span><span class="pnav__name">P01 · 电商运营助手</span></a>
+<a class="pnav__link pnav__link--next" href="../projects/p03.html"><span class="pnav__dir">下一个 →</span><span class="pnav__name">P03 · 企业知识库</span></a>
+      </nav>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 页脚 ============ -->
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__left">
+      <b>王鑫鸿 · 个人作品矩阵</b> · 静态站点，无追踪脚本<br>
+      数据由仓库静态统计得出 · 与 GitHub 仓库同步维护
+    </div>
+    <div class="foot__links">
+      <a href="../index.html">回到首页</a>
+      <a href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:18439129462@163.com">18439129462@163.com</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/app.js" defer></script>
+</body>
+</html>
