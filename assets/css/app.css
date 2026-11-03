@@ -464,6 +464,19 @@ html[data-theme="dark"] .icon-btn .icon-moon {
   color: var(--ink3);
 }
 
+/* 求职方向说明：FDE 缩写后补中文全称，避免招聘方看不懂缩写 */
+.hero__note--role {
+  margin-top: var(--sp-2);
+  padding-left: 11px;
+  border-left: 2px solid var(--brand-line);
+  color: var(--ink2);
+}
+
+.hero__note--role b {
+  color: var(--ink1);
+  font-weight: 600;
+}
+
 .hero__ctas {
   display: flex;
   flex-wrap: wrap;
@@ -1692,6 +1705,26 @@ html[data-theme="light"] .shot__badge--real {
   font-weight: 600;
   color: var(--ink1);
   line-height: 1.4;
+}
+
+/* 缩写后的中文全称，另起一行，弱化但可读。
+   .hiring__v 默认是 flex row，宽度被内容决定；这里改成纵向，
+   让中文全称自然落到第二行，而不是把英文行挤窄。 */
+.hiring__cn {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink3);
+  letter-spacing: 0.02em;
+}
+
+/* 含中文全称的目标岗位格：整体纵向排列 */
+.hiring__v--role {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
 }
 
 .hiring__v a {
