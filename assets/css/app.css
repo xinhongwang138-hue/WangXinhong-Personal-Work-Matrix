@@ -1673,6 +1673,13 @@ html[data-theme="light"] .shot__badge--real {
   border-bottom: 1px solid var(--brand-line);
 }
 
+/* 联系方式卡片：GitHub 与邮箱两行竖向排列 */
+.hiring__v--stack {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
 .hiring__v a:hover {
   color: var(--brand-hover);
   border-bottom-color: var(--brand-hover);
