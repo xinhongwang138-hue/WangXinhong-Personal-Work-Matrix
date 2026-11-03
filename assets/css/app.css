@@ -820,19 +820,6 @@ html[data-theme="light"] .mnode--store {
   background: var(--brand-line);
 }
 
-.pcard__role {
-  margin-right: auto;
-  padding: 2px 6px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-xs);
-  background: var(--surface-2);
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  color: var(--ink3);
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
 .pcard__metric {
   font-family: var(--font-mono);
   font-size: 11px;
