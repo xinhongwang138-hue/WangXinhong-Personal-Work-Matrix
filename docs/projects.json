@@ -147,7 +147,7 @@
       "repro": {
         "cmd": "npm ci && npx prisma generate && next dev -p 3001",
         "url": "http://127.0.0.1:3001/contracts",
-        "note": "需要先起 PostgreSQL（端口 5432），并把 .env.example 里的 DATABASE_URL 改成实际库。默认账号 admin@example.com / Admin@12345 来自 prisma/seed.ts，仅本地开发用。"
+        "note": "需要先起 PostgreSQL（端口 5432），并把 .env.example 里的 DATABASE_URL 改成实际库。默认账号 admin@example.com / Admin@12345 来自 prisma/seed.ts，仅本地开发用；登录页下方的演示快捷登录可按角色直接进入，不必输口令，生产构建默认关闭。"
       },
       "needs": ["PostgreSQL 16"],
       "bounds": [
