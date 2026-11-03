@@ -842,43 +842,67 @@
           <h2>关于我</h2>
           <p>四个系统之外，交代一下<b>我在做什么、怎么做事</b>。不写形容词，写状态。</p>
         </div>
+        <div class="sec-head__aside">
+          求职中<br>AI 应用开发 / FDE
+        </div>
       </div>
+
+      <ul class="hiring reveal" aria-label="求职状态">
+        <li class="hiring__item">
+          <span class="hiring__k">当前状态</span>
+          <span class="hiring__v"><i class="hiring__dot" aria-hidden="true"></i>求职中，可立即上手</span>
+        </li>
+        <li class="hiring__item">
+          <span class="hiring__k">目标岗位</span>
+          <span class="hiring__v">AI 应用开发 / FDE</span>
+        </li>
+        <li class="hiring__item">
+          <span class="hiring__k">到岗时间</span>
+          <span class="hiring__v">1 周内</span>
+        </li>
+        <li class="hiring__item">
+          <span class="hiring__k">联系方式</span>
+          <span class="hiring__v">GitHub <a href="https://github.com/xinhongwang138-hue" target="_blank" rel="noopener">@xinhongwang138-hue</a></span>
+        </li>
+      </ul>
 
       <div class="about">
         <div class="reveal">
           <p class="about__lead">写代码之前，先把约束写清楚。</p>
-          <p>
-            状态怎么流转、失败怎么暴露、数字怎么复核 —— 这三件事定了，剩下的才是选框架。
-            四个系统覆盖电商运营、法务审批、知识管理、检索四类场景，共同点是都能在本地从零重建。
-            这个页面不放手机号、邮箱和简历文件，需要联系走 GitHub 即可。
-          </p>
 
-          <div class="taggroup">
-            <div class="taggroup__label">方向</div>
-            <div class="tags">
-              <span class="tag">Agent 编排</span><span class="tag">RAG 检索</span><span class="tag">业务系统全栈</span><span class="tag">工程验收</span>
-            </div>
+          <div class="about__block">
+            <div class="about__k">我在做什么</div>
+            <p>
+              状态怎么流转、失败怎么暴露、数字怎么复核 —— 这三件事定了，剩下的才是选框架。
+              四个系统覆盖<b>电商运营、合同审批、企业知识库、深度检索</b>四类场景，共同点是都能在本地从零重建，
+              不是脚手架，也不是只有截图的 demo。
+            </p>
           </div>
 
-          <div class="taggroup">
-            <div class="taggroup__label">语言</div>
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">TypeScript</span><span class="tag">SQL</span>
-            </div>
-          </div>
-
-          <div class="taggroup">
-            <div class="taggroup__label">后端与数据</div>
-            <div class="tags">
-              <span class="tag">FastAPI</span><span class="tag">Next.js</span><span class="tag">Prisma</span><span class="tag">Celery</span><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Milvus</span><span class="tag">MongoDB</span>
-            </div>
-          </div>
-
-          <div class="taggroup">
-            <div class="taggroup__label">智能与工程</div>
-            <div class="tags">
-              <span class="tag">LangGraph</span><span class="tag">DeepAgents</span><span class="tag">BGE-M3</span><span class="tag">RAGFlow</span><span class="tag">Docker</span><span class="tag">pytest</span><span class="tag">Vitest</span><span class="tag">Playwright</span>
-            </div>
+          <div class="about__block">
+            <div class="about__k">技术栈</div>
+            <dl class="stack">
+              <div class="stack__row">
+                <dt class="stack__k">语言</dt>
+                <dd class="stack__v">Python<span aria-hidden="true"> · </span>TypeScript<span aria-hidden="true"> · </span>SQL</dd>
+              </div>
+              <div class="stack__row">
+                <dt class="stack__k">后端</dt>
+                <dd class="stack__v">FastAPI<span aria-hidden="true"> · </span>Next.js<span aria-hidden="true"> · </span>Prisma<span aria-hidden="true"> · </span>Celery</dd>
+              </div>
+              <div class="stack__row">
+                <dt class="stack__k">数据</dt>
+                <dd class="stack__v">PostgreSQL<span aria-hidden="true"> · </span>MySQL<span aria-hidden="true"> · </span>Redis<span aria-hidden="true"> · </span>Milvus<span aria-hidden="true"> · </span>MongoDB</dd>
+              </div>
+              <div class="stack__row">
+                <dt class="stack__k">智能</dt>
+                <dd class="stack__v">LangGraph<span aria-hidden="true"> · </span>DeepAgents<span aria-hidden="true"> · </span>BGE-M3<span aria-hidden="true"> · </span>RAGFlow</dd>
+              </div>
+              <div class="stack__row">
+                <dt class="stack__k">工程</dt>
+                <dd class="stack__v">Docker<span aria-hidden="true"> · </span>pytest<span aria-hidden="true"> · </span>Vitest<span aria-hidden="true"> · </span>Playwright</dd>
+              </div>
+            </dl>
           </div>
         </div>
 
@@ -891,6 +915,12 @@
               <li><b>数字要能复核</b><span>每个指标带口径和复算脚本。</span></li>
               <li><b>边界写进文档</b><span>跑不通的部分直接写，不用 mock 充数。</span></li>
             </ol>
+            <div class="principles__foot">
+              这四条不是宣言，对应页面上可以点进去查的部分：
+              <a href="#architecture">架构主线</a> ·
+              <a href="#evidence">可复核的数字</a> ·
+              <a href="#boundary">已知边界</a>
+            </div>
           </div>
         </div>
       </div>
