@@ -327,7 +327,7 @@
             <li>Redis</li>
             <li>PostgreSQL</li>
           </ul>
-          <p class="prepro__note">不需要 Docker：本机起 MySQL / Redis / PostgreSQL 后直接跑 api 与 web。LLM 网关地址与 Key 从 .env.example 的 LLM_BASE_URL / LLM_API_KEY 填。</p>
+          <p class="prepro__note">不需要 Docker：本机起 MySQL / Redis / PostgreSQL 后直接跑 api 与 web。LLM 网关地址与 Key 从 .env.example 的 LLM_BASE_URL / LLM_API_KEY 填。仓里没有默认口令，得先用 DEMO_OWNER_PASSWORD 播一个；再把同一个口令写进 web/.env.local 的 DEMO_LOGIN_PASSWORD，登录页会多出一键进入的演示入口（不配则不显示）。</p>
         </div>
       </div>
     </div>
