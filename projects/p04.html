@@ -327,7 +327,7 @@
             <li>RAGFlow</li>
             <li>只读 MySQL</li>
           </ul>
-          <p class="prepro__note">demo compose 自带种子库；再在 ui/ 下 npm run dev 起前端（Vite 代理指到后端端口）。模型网关、TAVILY_API_KEY、RAGFLOW_BASE_URL 与只读数据库连接串都要在 .env 里填。</p>
+          <p class="prepro__note">demo compose 自带种子库；再在 ui/ 下 npm run dev 起前端，Vite 把 /api 与 /ws 代理到 127.0.0.1:8000。后端换端口是 DS_AGENT_PORT，前端要同步设 DS_AGENT_API_PORT（两个变量名不一样，漏一个就连不上）。模型网关、TAVILY_API_KEY、RAGFLOW_BASE_URL 与只读数据库连接串都要在 .env 里填。</p>
         </div>
       </div>
     </div>
