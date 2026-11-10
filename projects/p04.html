@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P04 · 深度搜索 Agent | 王鑫鸿 · 个人作品矩阵</title>
-<meta name="description" content="深度搜索 Agent（Deep Search Agent）：一次深度检索要跨网页、数据库、知识库三个来源，模型很容易各说各话。把检索下沉给三个子智能体，执行层加硬护栏。 3,098 行源码、11 个 pytest 用例。附架构链路、工程约束、已知边界与本地复现步骤。">
+<meta name="description" content="深度搜索 Agent（Deep Search Agent）：一次深度检索要跨网页、数据库、知识库三个来源，模型很容易各说各话。把检索下沉给三个子智能体，执行层加硬护栏。 3,105 行源码、11 个 pytest 用例。附架构链路、工程约束、已知边界与本地复现步骤。">
 <meta name="author" content="王鑫鸿">
 <meta name="theme-color" content="#07090E">
 <meta property="og:type" content="article">
@@ -124,7 +124,7 @@
         <dl class="pmeta reveal">
           <div class="pmeta__item">
             <dt>源码行数</dt>
-            <dd><span class="pmeta__num">3,098</span><span class="pmeta__unit">LOC</span></dd>
+            <dd><span class="pmeta__num">3,105</span><span class="pmeta__unit">LOC</span></dd>
           </div>
           <div class="pmeta__item">
             <dt>源码文件</dt>
@@ -136,7 +136,7 @@
           </div>
           <div class="pmeta__item">
             <dt>提交次数</dt>
-            <dd><span class="pmeta__num">3</span><span class="pmeta__unit">commits</span></dd>
+            <dd><span class="pmeta__num">7</span><span class="pmeta__unit">commits</span></dd>
           </div>
         </dl>
       </div>
@@ -312,11 +312,6 @@
 
       <div class="prepro reveal">
         <div class="prepro__block">
-          <div class="pblock__label">在线演示</div>
-          <p class="prepro__url"><a href="https://62.234.173.191:8443/" target="_blank" rel="noopener">https://62.234.173.191:8443/</a></p>
-          <p class="prepro__note">模型已接 qwen-plus；Tavily 检索与企业 MySQL 未配置，涉及这两项时界面会明确提示不可用，不编造结果。</p>
-        </div>
-        <div class="prepro__block">
           <div class="pblock__label">启动命令</div>
           <pre class="prepro__code"><code>docker compose -f docker-compose.demo.yml up -d &amp;&amp; python main.py</code></pre>
         </div>
@@ -368,7 +363,7 @@
           <div class="bound__n">03</div>
           <div>
             <h3>提交数最少</h3>
-            <p>四个项目里这个仓库的提交数最低（3 次），代码量也最小（3,098 行）。它是护栏与轨迹机制的验证样本，不是完整的生产系统。</p>
+            <p>四个项目里这个仓库的提交数最低（7 次），代码量也最小（3,105 行）。它是护栏与轨迹机制的验证样本，不是完整的生产系统。</p>
           </div>
         </div>
         <div class="bound">

@@ -13,11 +13,11 @@
       "name": "电商运营助手",
       "en": "Ecommerce Operation Assistant",
       "repo": "ecommerce-operation-assistant",
-      "loc": 43068,
-      "files": 274,
-      "tests": 181,
-      "commits": 17,
-      "tests_note": "181 个 pytest 用例",
+      "loc": 67262,
+      "files": 402,
+      "tests": 428,
+      "commits": 46,
+      "tests_note": "428 个 pytest 用例",
       "summary": "店铺运营的动作散在表格和群里：库存、竞品、素材、投放各一套口径。这个工作台把它们收进一个系统，Agent 任务也要走审批和追踪。",
       "lead": "把散在表格和群聊里的店铺运营动作收进一个系统，Agent 任务同样走审批与追踪。",
       "shot": {
@@ -48,7 +48,7 @@
         },
         {
           "label": "验收",
-          "html": "<b>181 个 pytest 用例</b>；待办中心聚合低库存、竞品变化、失败任务与待审批，SSE 推送执行事件"
+          "html": "<b>428 个 pytest 用例</b>；待办中心聚合低库存、竞品变化、失败任务与待审批，SSE 推送执行事件"
         }
       ],
       "tags": ["Next.js 16", "FastAPI", "Celery", "LangGraph", "MySQL 8", "Redis 7", "PostgreSQL 16", "Docker"],
@@ -58,7 +58,7 @@
         { "dim": "数据建模与事务", "level": "core", "note": "三库分离" },
         { "dim": "前端工程", "level": "core", "note": "Next 16" },
         { "dim": "异步与实时", "level": "core", "note": "Celery + SSE" },
-        { "dim": "自动化测试", "level": "core", "note": "181 用例" },
+        { "dim": "自动化测试", "level": "core", "note": "428 用例" },
         { "dim": "容器化交付", "level": "core", "note": "6 容器" }
       ],
       "repro": {
@@ -96,10 +96,10 @@
       "name": "合同审批系统",
       "en": "Contract Approval",
       "repo": "contract-approval",
-      "loc": 37702,
-      "files": 201,
+      "loc": 38026,
+      "files": 203,
       "tests": 259,
-      "commits": 27,
+      "commits": 30,
       "tests_note": "259 个用例",
       "summary": "合同在邮件和 IM 里流转，审批规则靠人记。这套系统把会签 / 或签 / 条件分支做成可配置的流程引擎，并留下不可篡改的审计链。",
       "lead": "把会签、或签、条件分支做成可配置的流程引擎，并留下不可篡改的审计链。",
@@ -182,7 +182,7 @@
       "loc": 10785,
       "files": 64,
       "tests": 0,
-      "commits": 14,
+      "commits": 16,
       "tests_note": "未建套件",
       "summary": "企业文档散在网盘里，问答要么搜不到、要么编答案。两条 LangGraph 链路：一条把 PDF 洗干净入库，一条做混合检索并给出引用。",
       "lead": "两条 LangGraph 链路：一条把 PDF 洗干净入库，一条做混合检索并给出引用。",
@@ -276,10 +276,10 @@
       "name": "深度搜索 Agent",
       "en": "Deep Search Agent",
       "repo": "deep-search-agent",
-      "loc": 3098,
+      "loc": 3105,
       "files": 35,
       "tests": 11,
-      "commits": 3,
+      "commits": 7,
       "tests_note": "11 个 pytest 用例",
       "summary": "一次深度检索要跨网页、数据库、知识库三个来源，模型很容易各说各话。把检索下沉给三个子智能体，执行层加硬护栏。",
       "lead": "把检索下沉给三个子智能体，执行层加硬护栏，主智能体只负责汇总成文。",
@@ -341,7 +341,7 @@
         },
         {
           "title": "提交数最少",
-          "html": "四个项目里这个仓库的提交数最低（3 次），代码量也最小（3,098 行）。它是护栏与轨迹机制的验证样本，不是完整的生产系统。"
+          "html": "四个项目里这个仓库的提交数最低（7 次），代码量也最小（3,105 行）。它是护栏与轨迹机制的验证样本，不是完整的生产系统。"
         },
         {
           "title": "没有性能数字",

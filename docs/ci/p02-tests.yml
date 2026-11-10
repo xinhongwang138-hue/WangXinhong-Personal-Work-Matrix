@@ -1,0 +1,60 @@
+name: tests
+
+# 放到 contract-approval 仓库的 .github/workflows/tests.yml 才会生效。
+# 只跑单元测试（vitest run），不跑 integration / e2e —— 那两条需要独立 contract_test 库
+# 和浏览器，先把「改完有没有把单测跑挂」这条底线守住。
+#
+# postgres service 是给 prisma generate / migrate 用的：测试文件会 import @prisma/client，
+# 即使单测不查库，客户端也得先针对真实 schema 生成出来。
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: contract_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/contract_test?schema=public
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Apply migrations
+        run: npx prisma migrate deploy
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
