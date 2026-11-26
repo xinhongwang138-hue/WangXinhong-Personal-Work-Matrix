@@ -70,8 +70,8 @@ python -m http.server 8910
 | 系统 | 怎么起 | 截图地址 |
 | --- | --- | --- |
 | P01 电商运营助手 | 本地 `npm run dev` | `http://127.0.0.1:3000/ask` |
-| P02 合同审批 | clone 仓库 → `npm ci` → `npx prisma generate` → `next dev -p 3001`（需先起 Postgres，端口 5432） | `http://127.0.0.1:3001/contracts` |
-| P03 企业知识库 | `docker compose` 起导入与查询两个 API，先把文档 POST 到 `/upload` | `http://127.0.0.1:8011/chat.html` |
+| P02 合同审批 | clone 仓库 → `cp .env.example .env` → `npm ci` → `npx prisma generate` → `npm run db:up`（compose 起 Postgres 16）→ `npm run db:reset && npm run db:seed` → `next dev -p 3001` | `http://127.0.0.1:3001/contracts` |
+| P03 企业知识库 | `cp docker-compose.example.yml docker-compose.yml && cp .env.example .env` → `docker compose up -d --build` 起导入与查询两个 API，先把文档 POST 到 `/upload` | `http://127.0.0.1:8011/chat.html` |
 | P04 深度搜索 | `docker compose -f docker-compose.demo.yml up -d`（自带种子库）→ `python main.py` → `ui/` 下 `npm run dev` | `http://127.0.0.1:5173/` |
 | P05 AI 电商客服 | `python start.py`（同时拉起中台 18081 与客服 18082，SQLite 自动建表灌数据） | `http://127.0.0.1:18082/` |
 
@@ -152,7 +152,7 @@ P02 与 P04 都需要一份 `.env`：数据库连接串、模型网关与 Key。
 
 ## 八、已知边界
 
-1. 没有可交互的在线 demo：五套系统依赖本地数据库或向量库（P05 只依赖 Python），仓库给的是可复现的启动路径。02 节五张实拍来自本机实例（依次 3000 / 3001 / 8011 / 5173 / 18082），按 1440×900 视口直接截屏，没有后期修图。
+1. 没有可交互的在线 demo：五套系统依赖本地数据库或向量库（P05 只依赖 Python），仓库给的是可复现的启动路径。02 节五张实拍来自本机实例（依次 3000 / 3001 / 8011 / 5173 / 18082），按 1280×800 视口直接截屏，没有后期修图。
 2. P03 只有 1 个链路脚本，没有 pytest 套件与断言，回归靠人眼看节点输出。
 3. LLM Key、Milvus 集群、RAGFlow、Tavily 不随仓库分发，缺依赖时链路明确失败。
 4. 未做并发压测与覆盖率统计。

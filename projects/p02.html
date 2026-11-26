@@ -310,7 +310,7 @@
       <div class="prepro reveal">
         <div class="prepro__block">
           <div class="pblock__label">启动命令</div>
-          <pre class="prepro__code"><code>npm ci &amp;&amp; npx prisma generate &amp;&amp; next dev -p 3001</code></pre>
+          <pre class="prepro__code"><code>cp .env.example .env &amp;&amp; npm ci &amp;&amp; npx prisma generate &amp;&amp; npm run db:up &amp;&amp; npm run db:reset &amp;&amp; npm run db:seed &amp;&amp; next dev -p 3001</code></pre>
         </div>
         <div class="prepro__block">
           <div class="pblock__label">访问地址</div>
@@ -321,7 +321,7 @@
           <ul class="prepro__needs">
             <li>PostgreSQL 16</li>
           </ul>
-          <p class="prepro__note">需要先起 PostgreSQL（端口 5432），并把 .env.example 里的 DATABASE_URL 改成实际库。默认账号 admin@example.com / Admin@12345 来自 prisma/seed.ts，仅本地开发用；登录页下方的演示快捷登录可按角色直接进入，不必输口令，生产构建默认关闭。</p>
+          <p class="prepro__note">两套连接串都要在 .env 里：应用读 DATABASE_URL，prisma 迁移读 MIGRATE_DATABASE_URL（.env.example 给的本机默认值可直接用，但 BETTER_AUTH_SECRET 必须换掉）；npm run db:up 用仓库的 compose 起 Postgres 16。reset 只重放迁移、不会自动灌种子，必须补 npm run db:seed——台账里那六份合同来自 prisma/seed-demo.ts，漏跑这一步页面是空表，跟截图对不上。默认账号 admin@example.com / Admin@12345（可被 SEED_ADMIN_PASSWORD 覆盖），仅本地开发用；登录页下方的演示快捷登录可按角色直接进入，生产构建默认关闭。</p>
         </div>
       </div>
     </div>

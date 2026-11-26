@@ -321,7 +321,7 @@
       <div class="prepro reveal">
         <div class="prepro__block">
           <div class="pblock__label">启动命令</div>
-          <pre class="prepro__code"><code>docker compose up -d</code></pre>
+          <pre class="prepro__code"><code>cp docker-compose.example.yml docker-compose.yml &amp;&amp; cp .env.example .env &amp;&amp; docker compose up -d --build</code></pre>
         </div>
         <div class="prepro__block">
           <div class="pblock__label">访问地址</div>
@@ -337,7 +337,7 @@
             <li>LLM Key</li>
             <li>本地 BGE-M3 模型</li>
           </ul>
-          <p class="prepro__note">docker compose 起导入与查询两个 API。文档要先 POST 到 /upload 才会进 Milvus；BGE-M3 与 reranker 模型路径在 .env 里指定，缺模型时链路明确失败。</p>
+          <p class="prepro__note">仓库只给模板：直接 docker compose up 会报 no configuration file，得先 cp 出 docker-compose.yml 与 .env，并把 OPENAI_API_KEY、VL_API_KEY、MCP_DASHSCOPE_API_KEY、MINERU_API_TOKEN 填进去。compose 起 7 个服务（etcd / minio / milvus / attu / mongo / 导入 8010 / 查询 8011）；文档要先 POST 到导入服务的 /upload 才会进 Milvus，BGE-M3 与 reranker 的模型路径也在 .env 里指定，缺模型时链路明确失败。</p>
         </div>
       </div>
     </div>

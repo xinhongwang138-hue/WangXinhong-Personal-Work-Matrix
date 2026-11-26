@@ -143,9 +143,9 @@
         { "dim": "容器化交付", "level": "part", "note": "PG 单库" }
       ],
       "repro": {
-        "cmd": "npm ci && npx prisma generate && next dev -p 3001",
+        "cmd": "cp .env.example .env && npm ci && npx prisma generate && npm run db:up && npm run db:reset && npm run db:seed && next dev -p 3001",
         "url": "http://127.0.0.1:3001/contracts",
-        "note": "需要先起 PostgreSQL（端口 5432），并把 .env.example 里的 DATABASE_URL 改成实际库。默认账号 admin@example.com / Admin@12345 来自 prisma/seed.ts，仅本地开发用；登录页下方的演示快捷登录可按角色直接进入，不必输口令，生产构建默认关闭。"
+        "note": "两套连接串都要在 .env 里：应用读 DATABASE_URL，prisma 迁移读 MIGRATE_DATABASE_URL（.env.example 给的本机默认值可直接用，但 BETTER_AUTH_SECRET 必须换掉）；npm run db:up 用仓库的 compose 起 Postgres 16。reset 只重放迁移、不会自动灌种子，必须补 npm run db:seed——台账里那六份合同来自 prisma/seed-demo.ts，漏跑这一步页面是空表，跟截图对不上。默认账号 admin@example.com / Admin@12345（可被 SEED_ADMIN_PASSWORD 覆盖），仅本地开发用；登录页下方的演示快捷登录可按角色直接进入，生产构建默认关闭。"
       },
       "needs": ["PostgreSQL 16"],
       "bounds": [
@@ -235,9 +235,9 @@
         { "dim": "容器化交付", "level": "core", "note": "7 服务" }
       ],
       "repro": {
-        "cmd": "docker compose up -d",
+        "cmd": "cp docker-compose.example.yml docker-compose.yml && cp .env.example .env && docker compose up -d --build",
         "url": "http://127.0.0.1:8011/chat.html",
-        "note": "docker compose 起导入与查询两个 API。文档要先 POST 到 /upload 才会进 Milvus；BGE-M3 与 reranker 模型路径在 .env 里指定，缺模型时链路明确失败。"
+        "note": "仓库只给模板：直接 docker compose up 会报 no configuration file，得先 cp 出 docker-compose.yml 与 .env，并把 OPENAI_API_KEY、VL_API_KEY、MCP_DASHSCOPE_API_KEY、MINERU_API_TOKEN 填进去。compose 起 7 个服务（etcd / minio / milvus / attu / mongo / 导入 8010 / 查询 8011）；文档要先 POST 到导入服务的 /upload 才会进 Milvus，BGE-M3 与 reranker 的模型路径也在 .env 里指定，缺模型时链路明确失败。"
       },
       "needs": ["Milvus", "MinIO", "MongoDB", "MinerU API", "LLM Key", "本地 BGE-M3 模型"],
       "bounds": [
