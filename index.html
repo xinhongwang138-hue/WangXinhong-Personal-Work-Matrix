@@ -562,7 +562,7 @@
           <div class="sec-kicker">02 / Screens</div>
           <h2>先看界面，再看实现</h2>
           <p>
-            下面五张是<b>本地实例的实拍截图</b>：五个服务分别跑在 3000 / 3001 / 5173 / 8011 / 18082 上，直接截的，
+            下面五张是<b>本地实例的实拍截图</b>：五个服务分别跑在 3000 / 3001 / 8011 / 5173 / 18082 上（依次对应 P01~P05），直接截的，
             没改页面、没修图，地址条就是当时的地址。哪套系统起不来，才退回线框示意图并在地址条上标「非真实截图」。
           </p>
         </div>
@@ -702,12 +702,12 @@
           <div class="sec-kicker">03 / Capability</div>
           <h2>能力落在哪个系统里，一眼能查</h2>
           <p>
-            这张表用来自查，也用来防止夸大：<b>没做过的格子就是空的</b>。同一项能力在五个系统里的深度不同，
-            主色实心代表主力实现，半实心代表有实现但不是重点。
+            这张表用来自查，也用来防止夸大：<b>没做过的格子标「–」，不硬凑</b>。同一项能力在五个系统里分四档：
+            ● 主力实现、◐ 有实现但不是重点、○ 仅基础形态、– 未涉及。
           </p>
         </div>
         <div class="sec-head__aside">
-          rows 7 × columns 5<br>自评口径，按代码量判
+          rows 7 × columns 5<br>自评口径，按能力在该系统里的分量判
         </div>
       </div>
 
@@ -825,7 +825,7 @@
           <div class="band__items">
             <span class="chip">Next.js 16 App Router</span><span class="chip">React 19 + Server Actions</span><span class="chip">Vue 3 + Vite 控制台</span><span class="chip">FastAPI 静态页</span><span class="chip">原生 JS 单页</span>
           </div>
-          <div class="band__meta"><i>02</i><span>4 套前端栈</span></div>
+          <div class="band__meta"><i>02</i><span>5 套界面 · 4 类栈</span></div>
         </div>
 
         <div class="band band--accent">
@@ -839,9 +839,9 @@
         <div class="band">
           <div class="band__label"><b>数据层</b><span>storage</span></div>
           <div class="band__items">
-            <span class="chip">MySQL 8</span><span class="chip">PostgreSQL 16</span><span class="chip">Redis 7</span><span class="chip">Milvus</span><span class="chip">MinIO</span><span class="chip">MongoDB</span>
+            <span class="chip">MySQL 8</span><span class="chip">PostgreSQL 16</span><span class="chip">Redis 7</span><span class="chip">Milvus</span><span class="chip">MinIO</span><span class="chip">MongoDB</span><span class="chip">SQLite</span>
           </div>
-          <div class="band__meta"><i>04</i><span>6 个存储</span></div>
+          <div class="band__meta"><i>04</i><span>7 个存储</span></div>
         </div>
       </div>
 
@@ -875,7 +875,7 @@
         <div class="ev reveal">
           <div class="ev__num"><span data-count="126888">126<span class="num-sep">,</span>888</span><span class="ev__unit">行</span></div>
           <div class="ev__title">源码总行数</div>
-          <div class="ev__desc">统计 .py / .ts / .tsx / .vue / .sql / .css / .html / .ps1 / .sh，排除 node_modules、.next、.git 与锁文件</div>
+          <div class="ev__desc">计入 .py / .ts / .tsx / .js / .jsx / .vue / .sql / .css / .html / .ps1 / .sh，排除 node_modules、.next、dist 等构建目录与锁文件；是含空行与注释的物理行数，不是 SLOC</div>
           <div class="ev__src">docs/VERIFY.md · count_loc.py</div>
         </div>
 
@@ -1036,7 +1036,7 @@
               </div>
               <div class="stack__row">
                 <dt class="stack__k">数据</dt>
-                <dd class="stack__v">PostgreSQL<span aria-hidden="true"> · </span>MySQL<span aria-hidden="true"> · </span>Redis<span aria-hidden="true"> · </span>Milvus<span aria-hidden="true"> · </span>MongoDB</dd>
+                <dd class="stack__v">PostgreSQL<span aria-hidden="true"> · </span>MySQL<span aria-hidden="true"> · </span>Redis<span aria-hidden="true"> · </span>Milvus<span aria-hidden="true"> · </span>MongoDB<span aria-hidden="true"> · </span>SQLite</dd>
               </div>
               <div class="stack__row">
                 <dt class="stack__k">智能</dt>

@@ -355,7 +355,7 @@ def render_page(p: dict, prev_p: dict, next_p: dict, site: dict) -> str:
         <div class="sec-head__main">
           <div class="sec-kicker">03 / Capability</div>
           <h2>这个系统在哪几行是主力</h2>
-          <p>与首页 03 节是同一张表，这里只截出本项目这一列。<b>没做过的格子不填</b>。</p>
+          <p>与首页 03 节是同一张表，这里只截出本项目这一列。<b>没做过的格子标「–」</b>。</p>
         </div>
         <div class="sec-head__aside">
           rows 7<br>
