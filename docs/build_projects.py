@@ -287,7 +287,7 @@ def render_page(p: dict, prev_p: dict, next_p: dict, site: dict) -> str:
         <div class="sec-head__main">
           <div class="sec-kicker">01 / Screen</div>
           <h2>这是跑起来的界面</h2>
-          <p>本地实例直接截屏，没有后期修图，地址条就是当时的地址。</p>
+          <p>本地实例直接截屏，没有后期修图。外层圆点与地址条是本页样式画的假浏览器外壳，图片只有 1280×800 的视口内容，地址是当时真实访问的地址。</p>
         </div>
         <div class="sec-head__aside">
           实拍<br>
