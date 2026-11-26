@@ -26,6 +26,12 @@ DATA = os.path.join(ROOT, "docs", "projects.json")
 OUT_DIR = os.path.join(ROOT, "projects")
 INDEX = os.path.join(ROOT, "index.html")
 
+# 结论文字含 ● 与 ✓，Windows 控制台默认 GBK 会在 print 时抛 UnicodeEncodeError，
+# 让校验明明通过却返回非零退出码。
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+
 # 能力等级 → 圆点字符。与 index.html 里 03 节的矩阵保持同一套视觉语言。
 DOT = {"core": "●", "part": "◐", "light": "○", "none": "–"}
 LEVEL_TEXT = {
