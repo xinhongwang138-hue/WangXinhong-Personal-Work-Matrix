@@ -1,0 +1,453 @@
+{
+  "_comment": "项目数据的唯一真源。docs/build_projects.py 从这里生成 projects/p0N.html，并用 --check 模式校验 index.html 里的数字与本文件一致。改数字只改这里，然后重跑生成器。数字口径见 docs/VERIFY.md。",
+  "site": {
+    "owner": "王鑫鸿",
+    "email": "18439129462@163.com",
+    "github": "https://github.com/xinhongwang138-hue",
+    "root": "https://xinhongwang138-hue.github.io/WangXinhong-Personal-Work-Matrix/"
+  },
+  "projects": [
+    {
+      "id": "p01",
+      "no": "P01",
+      "name": "电商运营助手",
+      "en": "Ecommerce Operation Assistant",
+      "repo": "ecommerce-operation-assistant",
+      "loc": 67262,
+      "files": 402,
+      "tests": 428,
+      "tests_note": "428 个 pytest 用例",
+      "summary": "店铺运营的动作散在表格和群里：库存、竞品、素材、投放各一套口径。这个工作台把它们收进一个系统，Agent 任务也要走审批和追踪。",
+      "lead": "把散在表格和群聊里的店铺运营动作收进一个系统，Agent 任务同样走审批与追踪。",
+      "shot": {
+        "img": "demo-p01.webp",
+        "addr": "127.0.0.1:3000/ask",
+        "title": "P01 · 电商运营助手 — 问数",
+        "alt": "电商运营助手「问数」页面：顶部标着数据尚未抽取，中部三张卡片分别说明问题到 SQL 的映射、先过护栏再执行、口径可复核，底部是中文提问输入框与提问按钮",
+        "desc": "库里没数据时，页面不编造示例：明写「尚未抽取」，把护栏边界（单条 SELECT、表白名单、最多 500 行）摆在输入框上方，422 的原始原因也直接贴出来。这页的重点不是「能生成 SQL」，而是「生成不出时用户看到什么」。"
+      },
+      "pipeline": {
+        "aria": "P01 主链路：Next.js 16 工作台调用 FastAPI，任务进 Celery 与 Redis 队列，由 LangGraph Agent 执行，检查点写 PostgreSQL",
+        "lanes": [
+          {
+            "nodes": [
+              { "b": "工作台", "i": "Next.js 16" },
+              { "b": "接口", "i": "FastAPI" },
+              { "b": "队列", "i": "Celery · Redis" },
+              { "b": "编排", "i": "LangGraph", "key": true }
+            ]
+          }
+        ],
+        "note": "存储分离：MySQL 业务 · Redis 队列 · PostgreSQL 检查点"
+      },
+      "facts": [
+        {
+          "label": "工程约束",
+          "html": "业务 MySQL、队列 Redis、检查点 Postgres <b>三库分离</b>；六个容器一条 compose 起全栈；本地 8001 与容器内 8000 的差异写进 README 防混用"
+        },
+        {
+          "label": "验收",
+          "html": "<b>428 个 pytest 用例</b>；待办中心聚合低库存、竞品变化、失败任务与待审批，SSE 推送执行事件"
+        }
+      ],
+      "tags": ["Next.js 16", "FastAPI", "Celery", "LangGraph", "MySQL 8", "Redis 7", "PostgreSQL 16", "Docker"],
+      "caps": [
+        { "dim": "Agent / 状态机", "level": "core", "note": "LangGraph" },
+        { "dim": "检索与 RAG", "level": "none", "note": "未涉及" },
+        { "dim": "数据建模与事务", "level": "core", "note": "三库分离" },
+        { "dim": "前端工程", "level": "core", "note": "Next 16" },
+        { "dim": "异步与实时", "level": "core", "note": "Celery + SSE" },
+        { "dim": "自动化测试", "level": "core", "note": "428 用例" },
+        { "dim": "容器化交付", "level": "core", "note": "6 容器" }
+      ],
+      "repro": {
+        "cmd": "npm run dev",
+        "url": "http://127.0.0.1:3000/ask",
+        "note": "不需要 Docker：本机起 MySQL / Redis / PostgreSQL 后直接跑 api 与 web。LLM 网关地址与 Key 从 .env.example 的 LLM_BASE_URL / LLM_API_KEY 填。仓里没有默认口令，得先用 DEMO_OWNER_PASSWORD 播一个；再把同一个口令写进 web/.env.local 的 DEMO_LOGIN_PASSWORD，登录页会多出一键进入的演示入口（不配则不显示）。"
+      },
+      "needs": ["LLM 网关与 Key", "MySQL", "Redis", "PostgreSQL"],
+      "bounds": [
+        {
+          "title": "没有在线 demo",
+          "html": "这套系统依赖本地的 MySQL、Redis 与 PostgreSQL，仓库给的是可复现的启动路径，不是一个点开就能用的链接。这个页面本身是静态站，不需要后端。"
+        },
+        {
+          "title": "LLM 网关与 Key 需自备",
+          "html": "LangGraph Agent 走 OpenAI 兼容网关，<code>LLM_BASE_URL</code> / <code>LLM_API_KEY</code> / <code>LLM_MODEL</code> 不随仓库分发。缺 Key 时链路会明确失败，而不是返回编造的结果。"
+        },
+        {
+          "title": "没有性能数字",
+          "html": "未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。"
+        },
+        {
+          "title": "没有 CI 流水线",
+          "html": "仓库靠本地脚本跑测试，没有配置 GitHub Actions 之类的自动校验；改完代码是否回归，取决于有没有人手动跑。"
+        },
+        {
+          "title": "界面以功能为先",
+          "html": "没有独立设计系统，也没有做无障碍审计；这个页面做了键盘可达与减动效适配，但没做完整 WCAG 验收。"
+        }
+      ]
+    },
+    {
+      "id": "p02",
+      "no": "P02",
+      "name": "合同审批系统",
+      "en": "Contract Approval",
+      "repo": "contract-approval",
+      "loc": 38026,
+      "files": 203,
+      "tests": 259,
+      "tests_note": "259 个用例",
+      "summary": "合同在邮件和 IM 里流转，审批规则靠人记。这套系统把会签 / 或签 / 条件分支做成可配置的流程引擎，并留下不可篡改的审计链。",
+      "lead": "把会签、或签、条件分支做成可配置的流程引擎，并留下不可篡改的审计链。",
+      "shot": {
+        "img": "demo-p02.webp",
+        "addr": "127.0.0.1:3001/contracts",
+        "title": "P02 · 合同审批 — 合同台账",
+        "alt": "合同审批系统的合同管理页：顶部是搜索框与状态筛选，表格列出六份合同，状态列依次显示已归档、已驳回、履行中、待用印、审批中、草稿",
+        "desc": "六份种子合同刚好占满状态机里的六种状态：草稿、审批中、待用印、履行中、已驳回、已归档。台账按角色权限与数据范围过滤，金额、相对方、到期日都是库里的真实字段，不是前端写死的样例。"
+      },
+      "pipeline": {
+        "aria": "P02 主链路：App Router 页面通过 Server Actions 提交，进入自研流程引擎处理会签、或签、条件分支与加签转签，经 Prisma 落 PostgreSQL",
+        "lanes": [
+          {
+            "nodes": [
+              { "b": "页面", "i": "App Router" },
+              { "b": "动作", "i": "Server Actions" },
+              { "b": "流程引擎", "i": "会签·或签·条件·加签", "key": true },
+              { "b": "ORM", "i": "Prisma" }
+            ]
+          }
+        ],
+        "note": "存储 PostgreSQL 16 · 定义快照不可变 · 审计链只追加"
+      },
+      "facts": [
+        {
+          "label": "工程约束",
+          "html": "TS strict + <code>noUncheckedIndexedAccess</code>、禁 <code>any</code>；金额一律 <b>Decimal(18,2)</b> 禁浮点；时间存 UTC、展示 Asia/Shanghai；定义快照不可变"
+        },
+        {
+          "label": "验收",
+          "html": "<b>259 个用例</b>：Vitest 单测 + 集成（独立 contract_test 库）+ Playwright 全链路；覆盖会签比例阈值、越权 403、归档后只读"
+        }
+      ],
+      "tags": ["Next.js 16.4", "React 19", "TypeScript 5.9", "Prisma 7", "PostgreSQL 16", "Better Auth", "Tailwind v4", "Vitest", "Playwright"],
+      "caps": [
+        { "dim": "Agent / 状态机", "level": "part", "note": "流程引擎" },
+        { "dim": "检索与 RAG", "level": "none", "note": "未涉及" },
+        { "dim": "数据建模与事务", "level": "core", "note": "Prisma / PG" },
+        { "dim": "前端工程", "level": "core", "note": "React 19" },
+        { "dim": "异步与实时", "level": "part", "note": "轮询 worker" },
+        { "dim": "自动化测试", "level": "core", "note": "259 用例" },
+        { "dim": "容器化交付", "level": "part", "note": "PG 单库" }
+      ],
+      "repro": {
+        "cmd": "npm ci && npx prisma generate && next dev -p 3001",
+        "url": "http://127.0.0.1:3001/contracts",
+        "note": "需要先起 PostgreSQL（端口 5432），并把 .env.example 里的 DATABASE_URL 改成实际库。默认账号 admin@example.com / Admin@12345 来自 prisma/seed.ts，仅本地开发用；登录页下方的演示快捷登录可按角色直接进入，不必输口令，生产构建默认关闭。"
+      },
+      "needs": ["PostgreSQL 16"],
+      "bounds": [
+        {
+          "title": "没有在线 demo",
+          "html": "流程引擎跑在本地的 PostgreSQL 上，仓库给的是可复现的启动路径，不是一个点开就能用的链接。这个页面本身是静态站，不需要后端。"
+        },
+        {
+          "title": "外部依赖只有 PostgreSQL",
+          "html": "不调用大模型、也不连外部服务，审批规则是自研流程引擎按配置执行的，所以缺依赖时只会是数据库连不上，不会返回编造的结果。"
+        },
+        {
+          "title": "没有性能数字",
+          "html": "未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。"
+        },
+        {
+          "title": "没有 CI 流水线",
+          "html": "仓库靠本地脚本跑测试，没有配置 GitHub Actions 之类的自动校验；改完代码是否回归，取决于有没有人手动跑。"
+        },
+        {
+          "title": "界面以功能为先",
+          "html": "没有独立设计系统，也没有做无障碍审计；这个页面做了键盘可达与减动效适配，但没做完整 WCAG 验收。"
+        }
+      ]
+    },
+    {
+      "id": "p03",
+      "no": "P03",
+      "name": "企业知识库",
+      "en": "Knowledge Base · RAG",
+      "repo": "knowledge_base",
+      "loc": 10785,
+      "files": 64,
+      "tests": 0,
+      "tests_note": "未建套件",
+      "summary": "企业文档散在网盘里，问答要么搜不到、要么编答案。两条 LangGraph 链路：一条把 PDF 洗干净入库，一条做混合检索并给出引用。",
+      "lead": "两条 LangGraph 链路：一条把 PDF 洗干净入库，一条做混合检索并给出引用。",
+      "shot": {
+        "img": "demo-p03.webp",
+        "addr": "127.0.0.1:8011/chat.html",
+        "title": "P03 · 企业知识库 — 问答",
+        "alt": "企业知识库问答页：左侧是对话与知识库导航，中间是答案正文与「参考来源 5 条」，引用卡片显示文档名 architecture_review_2026-10-11、chunk 编号与 score 0.9705",
+        "desc": "库里放的是这个项目自己的两份产出文档（架构审查报告、目录结构）。问「检索链路有哪些节点」，引用直接落到 architecture_review_2026-10-11 的 chunk，score 0.9705 / 0.8845——检索确实打在本地 Milvus 上，不是联网兜底。"
+      },
+      "pipeline": {
+        "aria": "P03 两条链路：入库链路 MinerU 解析、分块、BGE-M3 向量化后写入 Milvus；查询链路向量与 HyDE 双路召回、RRF 融合、rerank 重排，最后走 MCP 联网兜底",
+        "lanes": [
+          {
+            "tag": "入库",
+            "nodes": [
+              { "b": "解析", "i": "MinerU" },
+              { "b": "切分", "i": "chunk" },
+              { "b": "向量化", "i": "BGE-M3" },
+              { "b": "入库", "i": "Milvus" }
+            ]
+          },
+          {
+            "tag": "查询",
+            "nodes": [
+              { "b": "双路召回", "i": "向量 + HyDE", "key": true },
+              { "b": "融合", "i": "RRF" },
+              { "b": "重排", "i": "rerank" },
+              { "b": "兜底", "i": "MCP 联网" }
+            ]
+          }
+        ],
+        "note": "原图 MinIO · 历史 Mongo · 向量 Milvus"
+      },
+      "facts": [
+        {
+          "label": "工程约束",
+          "html": "查询侧向量检索 + HyDE 双路召回 → <b>RRF 融合</b> → rerank → 联网兜底（MCP）；torch 线程数必须在 import 前锁定，否则 BGE-M3 会 segfault"
+        },
+        {
+          "label": "验收",
+          "html": "<span class=\"flag\">仅 1 个链路脚本</span> 没有 pytest 套件，已列进「已知边界」"
+        }
+      ],
+      "tags": ["LangGraph", "FastAPI", "MinerU", "BGE-M3", "Milvus", "MinIO", "MongoDB", "Reranker", "MCP"],
+      "caps": [
+        { "dim": "Agent / 状态机", "level": "core", "note": "双链路" },
+        { "dim": "检索与 RAG", "level": "core", "note": "RRF + HyDE" },
+        { "dim": "数据建模与事务", "level": "part", "note": "Milvus / Mongo" },
+        { "dim": "前端工程", "level": "light", "note": "静态页" },
+        { "dim": "异步与实时", "level": "none", "note": "同步调用" },
+        { "dim": "自动化测试", "level": "none", "note": "仅脚本" },
+        { "dim": "容器化交付", "level": "core", "note": "7 服务" }
+      ],
+      "repro": {
+        "cmd": "docker compose up -d",
+        "url": "http://127.0.0.1:8011/chat.html",
+        "note": "docker compose 起导入与查询两个 API。文档要先 POST 到 /upload 才会进 Milvus；BGE-M3 与 reranker 模型路径在 .env 里指定，缺模型时链路明确失败。"
+      },
+      "needs": ["Milvus", "MinIO", "MongoDB", "MinerU API", "LLM Key", "本地 BGE-M3 模型"],
+      "bounds": [
+        {
+          "title": "没有在线 demo",
+          "html": "检索链路依赖本地的 Milvus、MinIO 与 MongoDB，仓库给的是可复现的启动路径，不是一个点开就能用的链接。这个页面本身是静态站，不需要后端。"
+        },
+        {
+          "title": "没有测试套件",
+          "html": "仓库里只有 <code>test/04-test_graph_flow.py</code> 一个链路脚本，没有 pytest 套件；链路能跑通，但没有断言，回归仍靠人眼看节点输出。"
+        },
+        {
+          "title": "外部服务需自备",
+          "html": "Milvus 集群、MinerU API、大模型 Key 与本地 BGE-M3 / reranker 模型都不随仓库分发。缺任一项时链路会明确失败，而不是返回编造的结果。"
+        },
+        {
+          "title": "没有性能数字",
+          "html": "未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。"
+        },
+        {
+          "title": "没有 CI 流水线",
+          "html": "仓库靠本地脚本跑链路，没有配置 GitHub Actions 之类的自动校验；改完代码是否回归，取决于有没有人手动跑。"
+        },
+        {
+          "title": "界面以功能为先",
+          "html": "前端是静态页，没有独立设计系统，也没有做无障碍审计；这个页面做了键盘可达与减动效适配，但没做完整 WCAG 验收。"
+        }
+      ]
+    },
+    {
+      "id": "p04",
+      "no": "P04",
+      "name": "深度搜索 Agent",
+      "en": "Deep Search Agent",
+      "repo": "deep-search-agent",
+      "loc": 3105,
+      "files": 35,
+      "tests": 11,
+      "tests_note": "11 个 pytest 用例",
+      "summary": "一次深度检索要跨网页、数据库、知识库三个来源，模型很容易各说各话。把检索下沉给三个子智能体，执行层加硬护栏。",
+      "lead": "把检索下沉给三个子智能体，执行层加硬护栏，主智能体只负责汇总成文。",
+      "shot": {
+        "img": "demo-p04.webp",
+        "addr": "127.0.0.1:5173",
+        "title": "P04 · 深度搜索 — 多智能体检索",
+        "alt": "深度搜索 Agent 的会话界面：左栏执行轨迹显示主智能体委派给「数据库查询助手」并调用 list_sql_tables 工具，右栏交付物是 7.7 KB 的《药品安全库存缺口核查报告.md》，下方是带分仓库表格的最终回答",
+        "desc": "问「哪些药品的库存低于安全库存下限」，主智能体改写问题后委派给「数据库查询助手」，执行层用只读账号查出 22 条记录里 9 条低于安全线、缺口合计 1,860 单位，最后产出《药品安全库存缺口核查报告.md》（7.7 KB）。轨迹按 thread_id 实时推到左栏。"
+      },
+      "pipeline": {
+        "aria": "P04 主链路：DeepAgents 主智能体按 description 路由三路子智能体，调用 Tavily、只读 SQL、RAGFlow 等工具，最后由主智能体汇总成文",
+        "lanes": [
+          {
+            "nodes": [
+              { "b": "主控", "i": "DeepAgents" },
+              { "b": "子智能体 ×3", "i": "按 description", "key": true },
+              { "b": "工具层", "i": "Tavily·SQL·RAG" },
+              { "b": "成文", "i": "主智能体汇总" }
+            ]
+          }
+        ],
+        "note": "轨迹 WebSocket 按 thread_id 定向推送"
+      },
+      "facts": [
+        {
+          "label": "工程约束",
+          "html": "SQL 只读、路径穿越、检索次数预算全部在<b>执行层硬校验</b>，不靠提示词自觉；异常收敛成「报错但不抛栈」"
+        },
+        {
+          "label": "验收",
+          "html": "<b>11 个 pytest 用例</b> 专打护栏：危险 SQL 拒绝、工作区越界拒绝、坏 PDF 不炸服务；FastAPI + WebSocket 按 thread_id 定向推送轨迹"
+        }
+      ],
+      "tags": ["DeepAgents", "LangGraph", "FastAPI", "WebSocket", "Vue 3", "Vite", "Tavily", "RAGFlow"],
+      "caps": [
+        { "dim": "Agent / 状态机", "level": "core", "note": "主从委派" },
+        { "dim": "检索与 RAG", "level": "core", "note": "RAGFlow" },
+        { "dim": "数据建模与事务", "level": "part", "note": "只读 SQL" },
+        { "dim": "前端工程", "level": "core", "note": "Vue 3" },
+        { "dim": "异步与实时", "level": "core", "note": "WS 推送" },
+        { "dim": "自动化测试", "level": "part", "note": "11 用例" },
+        { "dim": "容器化交付", "level": "light", "note": "demo compose" }
+      ],
+      "repro": {
+        "cmd": "docker compose -f docker-compose.demo.yml up -d && python main.py",
+        "url": "http://127.0.0.1:5173/",
+        "note": "demo compose 自带种子库；再在 ui/ 下 npm run dev 起前端，Vite 把 /api 与 /ws 代理到 127.0.0.1:8000。后端换端口是 DS_AGENT_PORT，前端要同步设 DS_AGENT_API_PORT（两个变量名不一样，漏一个就连不上）。模型网关、TAVILY_API_KEY、RAGFLOW_BASE_URL 与只读数据库连接串都要在 .env 里填。"
+      },
+      "needs": ["LLM 网关与 Key", "Tavily API Key", "RAGFlow", "只读 MySQL"],
+      "bounds": [
+        {
+          "title": "没有在线 demo",
+          "html": "检索链路依赖本地的只读 MySQL 与外部的 RAGFlow，仓库给的是可复现的启动路径，不是一个点开就能用的链接。这个页面本身是静态站，不需要后端。"
+        },
+        {
+          "title": "外部服务需自备",
+          "html": "大模型 Key、Tavily API Key 与 RAGFlow 实例都不随仓库分发。缺任一项时链路会明确失败，而不是返回编造的结果。"
+        },
+        {
+          "title": "规模最小",
+          "html": "五个项目里这个仓库代码量最小（3,105 行），只覆盖「子智能体委派 + 执行层护栏」这一条链路。它验证的是这两件事怎么写，不是一个完整的生产系统。"
+        },
+        {
+          "title": "没有性能数字",
+          "html": "未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。"
+        },
+        {
+          "title": "没有 CI 流水线",
+          "html": "仓库靠本地脚本跑测试，没有配置 GitHub Actions 之类的自动校验；改完代码是否回归，取决于有没有人手动跑。"
+        },
+        {
+          "title": "界面以功能为先",
+          "html": "没有独立设计系统，也没有做无障碍审计；这个页面做了键盘可达与减动效适配，但没做完整 WCAG 验收。"
+        }
+      ]
+    },
+    {
+      "id": "p05",
+      "no": "P05",
+      "name": "AI 电商客服",
+      "en": "AI Customer Service",
+      "repo": "customer-service",
+      "loc": 7710,
+      "files": 80,
+      "tests": 0,
+      "tests_note": "27 项冒烟断言",
+      "summary": "咨询散在旺旺、工单和 FAQ 里，答不上来就转人工。这套系统把一轮对话拆成三条轨道：要办业务的走 YAML 流程状态机，问政策的走意图检索，剩下的交给闲聊兜底。",
+      "lead": "把一轮对话拆成任务、知识、闲聊三条轨道，没有 API Key 也能完整跑通。",
+      "shot": {
+        "img": "demo-p05.webp",
+        "addr": "127.0.0.1:18082",
+        "title": "P05 · AI 电商客服 — 对话",
+        "alt": "AI 电商客服的聊天界面：左栏是对话流，依次是「我的快递到哪了」追问订单号、报出订单号 A20240315001 后返回顺丰物流轨迹、「退款多久能到账」命中退款时效条款；右栏「我的订单与商品 4」下列出两张订单卡片（待发货 ¥199、已发货 ¥129）与两张商品卡片",
+        "desc": "问「我的快递到哪了」，先追问订单号；拿到 A20240315001 后走物流流程，回的是中台里的真实轨迹。接着问「退款多久能到账」，自动切到知识轨道，把 1-3 / 3-7 个工作日这条口径直接答出来。右上角标签写着「本地规则引擎」——这次没填 API Key，三条轨道走的仍是真实链路，不是写死的对白。"
+      },
+      "pipeline": {
+        "aria": "P05 主链路：文本或对象消息进入 DialogueEngine，TurnPlanner 出 TurnPlan 并过 Validator 安检，再分发到任务、知识、闲聊三条轨道，最后按 sender_id 把 DialogueState 落库",
+        "lanes": [
+          {
+            "tag": "一轮",
+            "nodes": [
+              { "b": "消息", "i": "文本 / 对象" },
+              { "b": "规划", "i": "TurnPlanner" },
+              { "b": "安检", "i": "Validator" },
+              { "b": "调度", "i": "DialogueEngine", "key": true }
+            ]
+          },
+          {
+            "tag": "三轨",
+            "nodes": [
+              { "b": "任务流程", "i": "YAML 状态机" },
+              { "b": "知识检索", "i": "API · FAQ" },
+              { "b": "闲聊兜底", "i": "柔化回应" },
+              { "b": "落库", "i": "DialogueState" }
+            ]
+          }
+        ],
+        "note": "状态按 sender_id upsert · MySQL 与 SQLite 按方言走不同写法"
+      },
+      "facts": [
+        {
+          "label": "工程约束",
+          "html": "三条轨道共用一份 <b>DialogueState</b> 聚合根，任务挂起后说「继续刚才那个退款」能恢复到原步骤；MySQL 的 <code>on_duplicate_key_update</code> 与 SQLite 的 <code>on_conflict_do_update</code> 语法不通用，按方言分支构造"
+        },
+        {
+          "label": "验收",
+          "html": "<b>27 项冒烟断言全过</b>（2026-11-26 实测），8 组场景全部走真实 HTTP：多轮补槽、点订单卡片跳过追问、任务中断后恢复、历史按 session 展开"
+        }
+      ],
+      "tags": ["FastAPI", "LangChain", "SQLAlchemy", "SQLite", "Jinja2", "Pydantic", "原生 JS"],
+      "caps": [
+        { "dim": "Agent / 状态机", "level": "core", "note": "三轨调度" },
+        { "dim": "检索与 RAG", "level": "light", "note": "关键词召回" },
+        { "dim": "数据建模与事务", "level": "core", "note": "双方言 upsert" },
+        { "dim": "前端工程", "level": "part", "note": "原生 JS 单页" },
+        { "dim": "异步与实时", "level": "light", "note": "请求内异步" },
+        { "dim": "自动化测试", "level": "part", "note": "27 冒烟断言" },
+        { "dim": "容器化交付", "level": "none", "note": "未容器化" }
+      ],
+      "repro": {
+        "cmd": "python start.py",
+        "url": "http://127.0.0.1:18082/",
+        "note": "五个项目里唯一不用外部服务的：SQLite 首次启动自动建表并灌演示数据，不用装 MySQL、不用跑建表脚本。start.py 同时拉起模拟电商中台（18081）与客服后端（18082）。填了 LLM_API_KEY 才走真模型；不填也能完整演示——infrastructure/llm.py 按同一套 BaseChatModel 接口实现了规则引擎，三条轨道、多轮补槽、挂起恢复都照常跑，只是措辞不如真模型灵活。"
+      },
+      "needs": ["Python 3.12+", "LLM 网关与 Key（可选）"],
+      "bounds": [
+        {
+          "title": "没有在线 demo",
+          "html": "后端要跑两个 Python 进程，静态托管放不下，所以给的是 <code>python start.py</code> 这条路径，不是一个点开就能用的链接。反过来说它是五个项目里依赖最少的：只要有 Python，不需要数据库、不需要 Docker。"
+        },
+        {
+          "title": "没有 pytest 套件",
+          "html": "只有 <code>smoke_test.py</code> 一个端到端脚本：27 项断言、8 组场景，全部走真实 HTTP，但没有接进 pytest，也没有进 CI。改完代码是否回归，得手动跑一遍。"
+        },
+        {
+          "title": "不填 Key 时是规则引擎",
+          "html": "没配 <code>LLM_API_KEY</code> 时，规划、知识作答、澄清、闲聊四类输出由内置规则引擎生成，全链路能跑通但措辞机械。填了 Key 才叫大模型在跑——这个区别页面上不糊弄。"
+        },
+        {
+          "title": "FAQ 与 RAG 是内置语料",
+          "html": "<code>knowledge/providers.py</code> 里 FAQ 与 RAG 两类 provider 是占位实现：按关键词在内置语料里召回，不是向量库检索。要真实检索得替换 <code>retrieve</code> 实现，接口已经留好。"
+        },
+        {
+          "title": "没有性能数字",
+          "html": "未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。"
+        },
+        {
+          "title": "没有容器化与 CI",
+          "html": "仓库里没有 Dockerfile 也没有 compose，靠 <code>start.py</code> 在本机拉起两个进程；同样没有配置 GitHub Actions 之类的自动校验。"
+        }
+      ]
+    }
+  ]
+}
