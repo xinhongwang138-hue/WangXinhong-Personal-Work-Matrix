@@ -307,7 +307,7 @@
         },
         {
           "label": "验收",
-          "html": "<b>11 个 pytest 用例</b> 专打护栏：危险 SQL 拒绝、工作区越界拒绝、坏 PDF 不炸服务；FastAPI + WebSocket 按 thread_id 定向推送轨迹"
+          "html": "<b>11 个 pytest 用例</b> 专打护栏：危险 SQL 拒绝、工作区越界拒绝、坏 PDF 不炸服务；GitHub Actions 里参数化展开成 18 项、2026-11-26 全绿。FastAPI + WebSocket 按 thread_id 定向推送轨迹"
         }
       ],
       "tags": ["DeepAgents", "LangGraph", "FastAPI", "WebSocket", "Vue 3", "Vite", "Tavily", "RAGFlow"],
@@ -344,8 +344,8 @@
           "html": "未做并发压测，因此不写 QPS、P95、错误率；也没有覆盖率报告。要这些数字得先搭压测环境。"
         },
         {
-          "title": "没有 CI 流水线",
-          "html": "仓库靠本地脚本跑测试，没有配置 GitHub Actions 之类的自动校验；改完代码是否回归，取决于有没有人手动跑。"
+          "title": "CI 只守离线用例与构建",
+          "html": "Actions 跑两条：后端 <code>uv run pytest -q</code>（18 项离线用例，不打真实网络）与前端 <code>vue-tsc --noEmit</code> + 构建。它守的是护栏没被改坏、类型没崩，<b>不覆盖端到端检索效果</b>——那要 Tavily、RAGFlow 与只读 MySQL，仍靠本机手动跑一遍看。"
         },
         {
           "title": "界面以功能为先",
