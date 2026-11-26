@@ -69,13 +69,13 @@ python -m http.server 8910
 
 | 系统 | 怎么起 | 截图地址 |
 | --- | --- | --- |
-| P01 电商运营助手 | 本地 `npm run dev` | `http://127.0.0.1:3000/ask` |
+| P01 电商运营助手 | 根目录 `cp .env.example .env` + `cp api/.env.example api/.env` → `powershell -File start-dev.ps1`（infra 容器 → API 8001 → worker → web 3000） | `http://127.0.0.1:3000/ask` |
 | P02 合同审批 | clone 仓库 → `cp .env.example .env` → `npm ci` → `npx prisma generate` → `npm run db:up`（compose 起 Postgres 16）→ `npm run db:reset && npm run db:seed` → `next dev -p 3001` | `http://127.0.0.1:3001/contracts` |
 | P03 企业知识库 | `cp docker-compose.example.yml docker-compose.yml && cp .env.example .env` → `docker compose up -d --build` 起导入与查询两个 API，先把文档 POST 到 `/upload` | `http://127.0.0.1:8011/chat.html` |
-| P04 深度搜索 | `docker compose -f docker-compose.demo.yml up -d`（自带种子库）→ `python main.py` → `ui/` 下 `npm run dev` | `http://127.0.0.1:5173/` |
+| P04 深度搜索 | `uv sync` → `docker compose -f docker-compose.demo.yml up -d`（自带种子库）→ `uv run python main.py` → `ui/` 下 `npm install && npm run dev` | `http://127.0.0.1:5173/` |
 | P05 AI 电商客服 | `python start.py`（同时拉起中台 18081 与客服 18082，SQLite 自动建表灌数据） | `http://127.0.0.1:18082/` |
 
-P02 与 P04 都需要一份 `.env`：数据库连接串、模型网关与 Key。两处细节：
+P01 / P02 / P04 都需要一份 `.env`（P01 是根目录与 `api/` 两份）：数据库连接串、模型网关与 Key。两处细节：
 
 - 截图前把 Next 的开发浮标（`nextjs-portal`）藏掉，否则左下角会多一个红色 Issue 徽标；
 - P02 的应用内置了 `.dark` 变量集（shadcn 默认）但没挂 ThemeProvider，默认浅色。
